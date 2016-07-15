@@ -19,6 +19,13 @@ class UtilisateurManager
         $this->db = $database;
     }
 
+    public function userGradeAndRole(Utilisateur $user) {
+        $grade = $this->getUserGrade($user);
+        $role = $this->getUserRole($user);
+        $user->setGrade($grade);
+        $user->setRole($role);
+        return $user;
+    }
     public function getAllUser() {
         $resultats = $this->db->query("SELECT * FROM utilisateur");
         $resultats->execute();
@@ -30,7 +37,7 @@ class UtilisateurManager
         foreach($tabUser as $elem)
         {
             $user = new Utilisateur($elem);
-            //$user = $this->userDroit($user);
+            $user = $this->userGradeAndRole($user);
             $tab[] = $user;
 
         }
@@ -38,6 +45,83 @@ class UtilisateurManager
         return $tab;
     }
 
+    public function getUserGrade(Utilisateur $user)
+    {
+        $gm = new Grademanager(connexionDb());
+        $query = $this->db->prepare("SELECT * FROM utilisateur_grade WHERE id_utilisateur = :id");
+        $query->execute(array(
+            ":id" => $user->getId()
+        ));
+
+        $tabGrade = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        $gradeUser = new Grade(array());
+        foreach($tabGrade as $elem)
+        {
+            $gradeUser = $gm->getGradeById($elem['id_grade']);
+
+
+        }
+        return $gradeUser;
+    }
+
+    public function setUserGrade(Utilisateur $user, $grade)
+    {
+
+        $query = $this->db->prepare("INSERT INTO utilisateur_grade(id_grade, id_utilisateur) values (:idGrade, :idUser)");
+        $query->execute(array(
+            ":idUser" => $user->getId(),
+            ":idGrade" => $grade
+        ));
+    }
+
+    public function updateUserGrade($idUser, $idGrade)
+    {
+        $query = $this->db->prepare("UPDATE utilisateur_grade set id_grade = :idGrade WHERE id_utilisateur = :idUser");
+        $query->execute(array(
+            ":idUser" => $idUser,
+            ":idGrade" => $idGrade
+        ));
+    }
+
+    public function setUserRole(Utilisateur $user, $role)
+    {
+
+        $query = $this->db->prepare("INSERT INTO utilisateur_role(id_role, id_utilisateur) values (:idRole, :idUser)");
+        $query->execute(array(
+            ":idUser" => $user->getId(),
+            ":idGrade" => $role
+        ));
+    }
+
+    public function updateUserRole($idUser, $idRole)
+    {
+        $query = $this->db->prepare("UPDATE utilisateur_role set id_role = :idRole WHERE id_utilisateur = :idUser");
+        $query->execute(array(
+            ":idUser" => $idUser,
+            ":idRole" => $idRole
+        ));
+    }
+
+    public function getUserRole(Utilisateur $user)
+    {
+        $rm = new Rolemanager(connexionDb());
+        $query = $this->db->prepare("SELECT * FROM utilisateur_role WHERE id_utilisateur = :id");
+        $query->execute(array(
+            ":id" => $user->getId()
+        ));
+
+        $tabRole = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        $roleUser = new Role(array());
+        foreach($tabRole as $elem)
+        {
+            $roleUser = $rm->getRoleById($elem['id_role']);
+
+
+        }
+        return $roleUser;
+    }
     public function getUserById($id)
     {
         $query = $this->db->prepare("SELECT * FROM utilisateur WHERE id = :id");
@@ -47,7 +131,7 @@ class UtilisateurManager
 
         if ($tabUser = $query->fetch(PDO::FETCH_ASSOC)) {
             $user = new Utilisateur($tabUser);
-            //$user = $this->userDroit($user);
+            $user = $this->userGradeAndRole($user);
         } else {
             $user = new Utilisateur(array());
         }
@@ -71,7 +155,7 @@ class UtilisateurManager
         if($tabUser = $query->fetch(PDO::FETCH_ASSOC))
         {
             $user = new Utilisateur($tabUser);
-            //$user = $this->userDroit($user);
+            $user = $this->userGradeAndRole($user);
         }
         else
         {
@@ -90,7 +174,7 @@ class UtilisateurManager
         if($tabUser = $query->fetch(PDO::FETCH_ASSOC))
         {
             $user = new Utilisateur($tabUser);
-            //$user = $this->userDroit($user);
+            $user = $this->userGradeAndRole($user);
         }
         else
         {
