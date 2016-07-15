@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - 1516he201085@193.190.65.94" uuid="bb7048db-dfb5-4ef5-9f8c-86ccf2a9524c">
+    <database-info product="MySQL" version="5.5.29" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="1516he201085"/>
+    <table name="activation" schema="" catalog="1516he201085" type="TABLE">
+      <column name="id_utilisateur" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="libelle" sqlType="VARCHAR" precision="40" scale="0" nullable="false" jdbcType="12"/>
+      <column name="code" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id_utilisateur,libelle"/>
+      <foreign-key name="activation_ibfk_1" columns="id_utilisateur" ref-table="utilisateur" ref-schema="" ref-catalog="1516he201085" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="enigme" schema="" catalog="1516he201085" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="auteur" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="titre" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="texte" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="image" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="date_modif" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="date_crea" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="enigme_ibfk_1" columns="auteur" ref-table="utilisateur" ref-schema="" ref-catalog="1516he201085" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="etat_enigme_ibfk_2" table="etat_enigme" schema="" catalog="1516he201085" columns="id_enigme"/>
+      <exported-key name="indice_ibfk_1" table="indice" schema="" catalog="1516he201085" columns="enigme"/>
+      <exported-key name="question_ibfk_1" table="question" schema="" catalog="1516he201085" columns="enigme"/>
+      <index name="unique_id" unique="true" columns="id"/>
+    </table>
+    <table name="etat" schema="" catalog="1516he201085" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="libelle" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="etat_enigme_ibfk_1" table="etat_enigme" schema="" catalog="1516he201085" columns="id_etat"/>
+      <index name="unique_id" unique="true" columns="id"/>
+    </table>
+    <table name="etat_enigme" schema="" catalog="1516he201085" type="TABLE">
+      <column name="date_debut" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="id_enigme" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_etat" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id_enigme,id_etat"/>
+      <foreign-key name="etat_enigme_ibfk_2" columns="id_enigme" ref-table="enigme" ref-schema="" ref-catalog="1516he201085" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="etat_enigme_ibfk_1" columns="id_etat" ref-table="etat" ref-schema="" ref-catalog="1516he201085" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="unique_id_enigme" unique="true" columns="id_enigme"/>
+    </table>
+    <table name="grade" schema="" catalog="1516he201085" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="libelle" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="utilisateur_grade_ibfk_2" table="utilisateur_grade" schema="" catalog="1516he201085" columns="id_grade"/>
+      <index name="unique_id" unique="true" columns="id"/>
+    </table>
+    <table name="indice" schema="" catalog="1516he201085" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="enigme" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="texte" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="image" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="date_crea" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="date_modif" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="indice_ibfk_1" columns="enigme" ref-table="enigme" ref-schema="" ref-catalog="1516he201085" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="unique_id" unique="true" columns="id"/>
+    </table>
+    <table name="niveau" schema="" catalog="1516he201085" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="libelle" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="niveau_reponse_ibfk_2" table="niveau_reponse" schema="" catalog="1516he201085" columns="id_niveau"/>
+      <index name="unique_id" unique="true" columns="id"/>
+    </table>
+    <table name="niveau_reponse" schema="" catalog="1516he201085" type="TABLE">
+      <column name="id_reponse" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_niveau" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id_reponse,id_niveau"/>
+      <foreign-key name="niveau_reponse_ibfk_2" columns="id_niveau" ref-table="niveau" ref-schema="" ref-catalog="1516he201085" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="niveau_reponse_ibfk_1" columns="id_reponse" ref-table="reponse" ref-schema="" ref-catalog="1516he201085" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="unique_id_reponse" unique="true" columns="id_reponse"/>
+    </table>
+    <table name="question" schema="" catalog="1516he201085" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="auteur" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="enigme" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="texte" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="date_crea" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="date_modif" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="question_ibfk_2" columns="auteur" ref-table="utilisateur" ref-schema="" ref-catalog="1516he201085" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="question_ibfk_1" columns="enigme" ref-table="enigme" ref-schema="" ref-catalog="1516he201085" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="reponse_ibfk_1" table="reponse" schema="" catalog="1516he201085" columns="question"/>
+      <index name="unique_id" unique="true" columns="id"/>
+    </table>
+    <table name="reponse" schema="" catalog="1516he201085" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="question" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="texte" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="date_crea" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="date_modif" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="reponse_ibfk_1" columns="question" ref-table="question" ref-schema="" ref-catalog="1516he201085" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="niveau_reponse_ibfk_1" table="niveau_reponse" schema="" catalog="1516he201085" columns="id_reponse"/>
+      <index name="unique_id" unique="true" columns="id"/>
+      <index name="unique_question" unique="true" columns="question"/>
+    </table>
+    <table name="role" schema="" catalog="1516he201085" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="libelle" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="utilisateur_role_ibfk_2" table="utilisateur_role" schema="" catalog="1516he201085" columns="id_role"/>
+      <index name="unique_id" unique="true" columns="id"/>
+    </table>
+    <table name="utilisateur" schema="" catalog="1516he201085" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="nom" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="date_connexion" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="date_inscription" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="mdp" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="activation_ibfk_1" table="activation" schema="" catalog="1516he201085" columns="id_utilisateur"/>
+      <exported-key name="enigme_ibfk_1" table="enigme" schema="" catalog="1516he201085" columns="auteur"/>
+      <exported-key name="question_ibfk_2" table="question" schema="" catalog="1516he201085" columns="auteur"/>
+      <exported-key name="utilisateur_grade_ibfk_1" table="utilisateur_grade" schema="" catalog="1516he201085" columns="id_utilisateur"/>
+      <exported-key name="utilisateur_role_ibfk_1" table="utilisateur_role" schema="" catalog="1516he201085" columns="id_utilisateur"/>
+      <index name="unique_id" unique="true" columns="id"/>
+    </table>
+    <table name="utilisateur_grade" schema="" catalog="1516he201085" type="TABLE">
+      <column name="id_utilisateur" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_grade" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id_utilisateur,id_grade"/>
+      <foreign-key name="utilisateur_grade_ibfk_2" columns="id_grade" ref-table="grade" ref-schema="" ref-catalog="1516he201085" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="utilisateur_grade_ibfk_1" columns="id_utilisateur" ref-table="utilisateur" ref-schema="" ref-catalog="1516he201085" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="unique_id_utilisateur" unique="true" columns="id_utilisateur"/>
+    </table>
+    <table name="utilisateur_role" schema="" catalog="1516he201085" type="TABLE">
+      <column name="id_utilisateur" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_role" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id_utilisateur,id_role"/>
+      <foreign-key name="utilisateur_role_ibfk_2" columns="id_role" ref-table="role" ref-schema="" ref-catalog="1516he201085" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="utilisateur_role_ibfk_1" columns="id_utilisateur" ref-table="utilisateur" ref-schema="" ref-catalog="1516he201085" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="unique_id_utilisateur" unique="true" columns="id_utilisateur"/>
+    </table>
+  </data-source>
+</component>
