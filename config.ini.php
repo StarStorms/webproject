@@ -16,12 +16,14 @@ host = 193.190.65.94
 username = SAMYN
 password = Erwan4K9q
 dbname = 1516he201085
+[AVATAR]
+maxTaille = 200
+maxWeight = 2048
+path = ../Avatar
 [ADMINISTRATEUR]
 pseudo = Admin
-mail = no-reply@everydayidea.be
-tel = 010413509
-[DOMAINE]
-nom_domaine = centrale-achat-apides.be
+mail = erwan@yopmail.com
 [HEADER]
 title = EnigmeLand
+banniere = Style/Banniere/banniere.jpg
 Description = Site des énigmes
