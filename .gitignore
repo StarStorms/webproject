@@ -48,3 +48,4 @@ Temporary Items
 *.php___jb_tmp___
 .idea/dataSources.local.xml
 .idea/workspace.xml
+*.xml
