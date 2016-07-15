@@ -22,7 +22,7 @@ startSession();
     $conf = parse_ini_file("config.ini.php");
     ?>
     <header>
-        <img src="<?php echo $conf['banniere']; ?>" alt="Bannière du site"><br>
+        <img src="<?php echo $conf['banniere']; ?>" alt="Bannière du site" class="img-responsive"><br>
         <h1><?php echo $conf['title']; ?></h1>
         <h2><?php echo $conf['Description']; ?></h2>
     </header>
@@ -34,7 +34,7 @@ startSession();
             <li><a href="index.php?page=enigme"> Enigmes</a></li>
             <li><a href="index.php?page=administration"> Administration</a></li>
             <li><a href="index.php?page=profil"> Profil</a></li>
-            <li><a href="index.php?page=deconnexion"> D�connexion</a></li>
+            <li><a href="index.php?page=deconnexion"> D�connexion</a></li>
             <?php } else { ?>
             <li><a href="index.php?page=inscription"> Inscription</a></li>
             <li><a href="index.php?page=connexion"> Connexion</a></li>
