@@ -121,12 +121,14 @@ class UtilisateurManager
 
         $query = $this
             ->db
-            ->prepare("UPDATE utilisateur SET nom = :username, email = :email");
+            ->prepare("UPDATE utilisateur SET nom = :username, email = :email, question_secrete = :question, reponse_secrete = :reponse");
 
         $query
             ->execute(array(
                 ":username" => $user->getNom(),
-                ":mail" => $user->getEmail()
+                ":mail" => $user->getEmail(),
+                ":question" => $user->getQuestionSecrete(),
+                ":reponse" => $user->getReponseSecrete()
             ));
         //$this->updateUserDroit($user->getId(), $user->getDroit()->getId());
 
@@ -144,6 +146,20 @@ class UtilisateurManager
                 ":id" => $user->getId()
             ));
 
+    }
+
+    public function addQuestionReponseSecrete($question, $reponse, Utilisateur $user)
+    {
+        $query = $this
+            ->db
+            ->prepare("UPDATE utilisateur SET question_secrete = :question, reponse_secrete = :reponse WHERE id = :id");
+
+        $query
+            ->execute(array(
+                ":id" => $user->getId(),
+                "question" => $question,
+                "reponse" => hash("sha256",$reponse)
+            ));
     }
 
     public function updateUserMdp (Utilisateur $user) {
