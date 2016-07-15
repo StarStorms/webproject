@@ -19,6 +19,25 @@ class Niveaumanager
         $this->db = $database;
     }
 
+
+    public function getAllNiveaux() {
+        $resultats = $this->db->query("SELECT * FROM niveau");
+        $resultats->execute();
+
+        $tabNiveaux = $resultats->fetchAll(PDO::FETCH_ASSOC);
+
+        $tab = array();
+
+        foreach($tabNiveaux as $elem)
+        {
+            $niveau = new Niveau($elem);
+            $tab[] = $niveau;
+
+        }
+
+        return $tab;
+    }
+
     public function getNiveauById($id)
     {
         $query = $this->db->prepare("SELECT * FROM niveau WHERE id = :id");
