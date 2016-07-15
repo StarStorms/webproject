@@ -7,13 +7,13 @@
  */
 require "Library/Include.lib.php";
 $conf = parse_ini_file("config.ini.php");
-var_dump($conf);
+
 ?>
 
 <!DOCTYPE HTML>
 <head>
     <title> Site PMM 2016</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
     <link rel="stylesheet" type="text/css" href="Style/bootstrap-3.3.6-dist/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="Style/privateCSS.css" />
 </head>
