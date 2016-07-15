@@ -15,7 +15,41 @@ class Utilisateur
     private $date_inscription;
     private $mdp;
     private $grade = array();
+    private $reponse_secrete;
+    private $question_secrete;
     private $role = array();
+
+    /**
+     * @return mixed
+     */
+    public function getReponseSecrete()
+    {
+        return $this->reponse_secrete;
+    }
+
+    /**
+     * @param mixed $reponse_secrete
+     */
+    public function setReponseSecrete($reponse_secrete)
+    {
+        $this->reponse_secrete = $reponse_secrete;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuestionSecrete()
+    {
+        return $this->question_secrete;
+    }
+
+    /**
+     * @param mixed $question_secrete
+     */
+    public function setQuestionSecrete($question_secrete)
+    {
+        $this->question_secrete = $question_secrete;
+    }
 
     /**
      * Fonction permettant l'hydratation de la classe.

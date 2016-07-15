@@ -121,6 +121,8 @@
       <column name="date_connexion" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="date_inscription" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="mdp" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="question_secrete" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="reponse_secrete" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="activation_ibfk_1" table="activation" schema="" catalog="1516he201085" columns="id_utilisateur"/>
       <exported-key name="enigme_ibfk_1" table="enigme" schema="" catalog="1516he201085" columns="auteur"/>
