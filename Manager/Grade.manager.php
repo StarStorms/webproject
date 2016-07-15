@@ -19,6 +19,26 @@ class Grademanager
         $this->db = $database;
     }
 
+    public function getAllGrade() {
+        $resultats = $this->db->query("SELECT * FROM grade");
+        $resultats->execute();
+
+        $tabGrades = $resultats->fetchAll(PDO::FETCH_ASSOC);
+
+        $tab = array();
+
+        foreach($tabGrades as $elem)
+        {
+            $grade = new Grade($elem);
+            $tab[] = $grade;
+
+        }
+
+        return $tab;
+    }
+
+
+
     public function getGradeById($id)
     {
         $query = $this->db->prepare("SELECT * FROM grade WHERE id = :id");

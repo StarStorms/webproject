@@ -3063,11 +3063,11 @@ password</columns>
         <default-expression>19.99</default-expression>
       </column>
       <column id="782" parent="74" name="rating">
-        <data-type>ENUM(5)|1</data-type>
+        <data-type>ENUM(5)|0</data-type>
         <default-expression>&apos;G&apos;</default-expression>
       </column>
       <column id="783" parent="74" name="special_features">
-        <data-type>SET(54)|1</data-type>
+        <data-type>SET(54)|0</data-type>
       </column>
       <column id="784" parent="74" name="last_update">
         <mandatory>1</mandatory>
@@ -3569,7 +3569,7 @@ customer_id</columns>
         <data-type>SMALLINT UNSIGNED(5)|5</data-type>
       </column>
       <column id="896" parent="86" name="rating">
-        <data-type>ENUM(5)|1</data-type>
+        <data-type>ENUM(5)|0</data-type>
         <default-expression>&apos;G&apos;</default-expression>
       </column>
       <column id="897" parent="86" name="actors">
@@ -3597,7 +3597,7 @@ customer_id</columns>
         <data-type>SMALLINT UNSIGNED(5)|5</data-type>
       </column>
       <column id="904" parent="87" name="rating">
-        <data-type>ENUM(5)|1</data-type>
+        <data-type>ENUM(5)|0</data-type>
         <default-expression>&apos;G&apos;</default-expression>
       </column>
       <column id="905" parent="87" name="actors">
@@ -3667,62 +3667,62 @@ customer_id</columns>
       </column>
       <column id="922" parent="91" name="Select_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="923" parent="91" name="Insert_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="924" parent="91" name="Update_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="925" parent="91" name="Delete_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="926" parent="91" name="Create_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="927" parent="91" name="Drop_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="928" parent="91" name="Grant_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="929" parent="91" name="References_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="930" parent="91" name="Index_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="931" parent="91" name="Alter_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="932" parent="91" name="Create_tmp_table_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="933" parent="91" name="Lock_tables_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <index id="934" parent="91" name="User">
@@ -3798,112 +3798,112 @@ User</columns>
       </column>
       <column id="951" parent="94" name="Select_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="952" parent="94" name="Insert_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="953" parent="94" name="Update_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="954" parent="94" name="Delete_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="955" parent="94" name="Create_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="956" parent="94" name="Drop_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="957" parent="94" name="Reload_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="958" parent="94" name="Shutdown_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="959" parent="94" name="Process_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="960" parent="94" name="File_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="961" parent="94" name="Grant_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="962" parent="94" name="References_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="963" parent="94" name="Index_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="964" parent="94" name="Alter_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="965" parent="94" name="Show_db_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="966" parent="94" name="Super_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="967" parent="94" name="Create_tmp_table_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="968" parent="94" name="Lock_tables_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="969" parent="94" name="Execute_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="970" parent="94" name="Repl_slave_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="971" parent="94" name="Repl_client_priv">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;N&apos;</default-expression>
       </column>
       <column id="972" parent="94" name="ssl_type">
         <mandatory>1</mandatory>
-        <data-type>ENUM(9)|1</data-type>
+        <data-type>ENUM(9)|0</data-type>
         <default-expression>&apos;&apos;</default-expression>
       </column>
       <column id="973" parent="94" name="ssl_cipher">
@@ -4007,7 +4007,7 @@ User</columns>
       </column>
       <column id="996" parent="97" name="Continent">
         <mandatory>1</mandatory>
-        <data-type>ENUM(13)|1</data-type>
+        <data-type>ENUM(13)|0</data-type>
         <default-expression>&apos;Asia&apos;</default-expression>
       </column>
       <column id="997" parent="97" name="Region">
@@ -4074,7 +4074,7 @@ User</columns>
       </column>
       <column id="1012" parent="98" name="IsOfficial">
         <mandatory>1</mandatory>
-        <data-type>ENUM(2)|1</data-type>
+        <data-type>ENUM(2)|0</data-type>
         <default-expression>&apos;F&apos;</default-expression>
       </column>
       <column id="1013" parent="98" name="Percentage">

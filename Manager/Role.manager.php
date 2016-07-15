@@ -19,6 +19,26 @@ class Rolemanager
         $this->db = $database;
     }
 
+
+    public function getAllRoles() {
+        $resultats = $this->db->query("SELECT * FROM role");
+        $resultats->execute();
+
+        $tabRoles = $resultats->fetchAll(PDO::FETCH_ASSOC);
+
+        $tab = array();
+
+        foreach($tabRoles as $elem)
+        {
+            $role = new Role($elem);
+            $tab[] = $role;
+
+        }
+
+        return $tab;
+    }
+
+
     public function getRoleById($id)
     {
         $query = $this->db->prepare("SELECT * FROM role WHERE id = :id");
