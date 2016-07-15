@@ -22,7 +22,7 @@ require "Library/Include.lib.php";
     $conf = parse_ini_file("config.ini.php");
     ?>
     <header>
-        <img src="<?php echo $conf['banniere']; ?>" alt="Bannière du site"><br>
+        <img src="<?php echo $conf['banniere']; ?>" alt="BanniÃ¨re du site"><br>
         <h1><?php echo $conf['title']; ?></h1>
         <h2><?php echo $conf['Description']; ?></h2>
     </header>
