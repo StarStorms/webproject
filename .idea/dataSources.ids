@@ -48,7 +48,6 @@
       <primary-key name="PRIMARY" columns="id_enigme,id_etat"/>
       <foreign-key name="etat_enigme_ibfk_2" columns="id_enigme" ref-table="enigme" ref-schema="" ref-catalog="1516he201085" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="etat_enigme_ibfk_1" columns="id_etat" ref-table="etat" ref-schema="" ref-catalog="1516he201085" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="unique_id_enigme" unique="true" columns="id_enigme"/>
     </table>
     <table name="grade" schema="" catalog="1516he201085" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
