@@ -31,6 +31,7 @@ class Enigmemanager
         foreach($tabEnigmes as $elem)
         {
             $enigmes = new Enigme($elem);
+            $enigmes->setEtat($this->getEtatEnigme($enigmes->getId()));
             $tab[] = $enigmes;
 
         }
@@ -49,6 +50,7 @@ class Enigmemanager
 
         if ($tabEnigme = $query->fetch(PDO::FETCH_ASSOC)) {
             $enigme = new Enigme($tabEnigme);
+            $enigme->setEtat($this->getEtatEnigme($enigme->getId()));
         } else {
             $enigme = new Enigme(array());
         }
@@ -65,11 +67,28 @@ class Enigmemanager
 
         if($tabEnigme = $query->fetch(PDO::FETCH_ASSOC)){
             $enigme = new Enigme($tabEnigme);
+            $enigme->setEtat($this->getEtatEnigme($enigme->getId()));
         } else{
             $enigme = new Enigme(array());
         }
 
         return $enigme;
+    }
+
+    public function getEtatEnigme($id) {
+        $em = new Etatmanager(connexionDb());
+        $query = $this->db->prepare("SELECT * FROM etat_enigme WHERE id_enigme = :id");
+        $query->execute(array(
+            ":id" => $id
+        ));
+
+        $tabEtat = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        $etatEnigme = new Etat(array());
+        foreach ($tabEtat as $elem) {
+            $etatEnigme = $em->getEtatById($elem['id_etat']);
+        }
+        return $etatEnigme;
     }
 
     public function getEnigmeByDateModif($date_modif)
@@ -79,6 +98,7 @@ class Enigmemanager
 
         if($tabEnigme = $query->fetch(PDO::FETCH_ASSOC)){
             $enigme = new Enigme($tabEnigme);
+            $enigme->setEtat($this->getEtatEnigme($enigme->getId()));
         } else{
             $enigme = new Enigme(array());
         }
