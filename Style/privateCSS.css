@@ -11,3 +11,9 @@ header {
 body {
     background-color : #269abc;
 }
+
+.navbar li {
+    display : inline-block;
+    padding : 2px;
+    list-style : none;
+}
