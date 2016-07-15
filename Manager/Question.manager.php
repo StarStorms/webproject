@@ -59,16 +59,16 @@ class QuestionManager
         $query->execute(array(
             ":id" => $id
         ));
+        $tabQuestions = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        if($tabQuestion = $query->fetch(PDO::FETCH_ASSOC))
+        $tab = array();
+        foreach($tabQuestions as $elem)
         {
-            $question = new Question($tabQuestion);
+            $question = new Question($elem);
+            $tab[] = $question;
         }
-        else
-        {
-            $question = new Question(array());
-        }
-        return $question;
+
+        return $tab;
     }
 
     public function getQuestionsByEnigme($id)
@@ -77,16 +77,25 @@ class QuestionManager
         $query->execute(array(
             ":id" => $id
         ));
+        $tabQuestions = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        if($tabQuestion = $query->fetch(PDO::FETCH_ASSOC))
+        $tab = array();
+        foreach($tabQuestions as $elem)
         {
-            $question = new Question($tabQuestion);
+            $question = new Question($elem);
+            $tab[] = $question;
         }
-        else
-        {
-            $question = new Question(array());
-        }
-        return $question;
+
+        return $tab;
+    }
+    
+    public function countQuestionsByEnigme($id) {
+        $query = $this->db->prepare("SELECT count(*) FROM question WHERE enigme = :id");
+        $query->execute(array(
+            ":id" => $id
+        ));
+        $count = $query->fetch(PDO::FETCH_ASSOC);
+        return $count;
     }
 
     /**
