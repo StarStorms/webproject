@@ -5,7 +5,8 @@
  * Date: 15/07/2016
  * Time: 21:28
  */
-
+require "Library/Include.lib.php";
+$conf = parse_ini_file("config.ini.php");
 ?>
 
 <!DOCTYPE HTML>
@@ -16,6 +17,8 @@
 </head>
 <body>
     <header>
-
+        <img src="<?php echo $conf['HEADER']['banniere']; ?>" alt="Bannière du site"><br>
+        <h1><?php echo $conf['HEADER']['title']; ?></h1>
+        <h2><?php echo $conf['HEADER']['Description']; ?></h2>
     </header>
 </body>
