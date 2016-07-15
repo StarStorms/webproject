@@ -20,6 +20,26 @@ class Etatmanager
         $this->db = $database;
     }
 
+
+    public function getAllEtat() {
+        $resultats = $this->db->query("SELECT * FROM etat");
+        $resultats->execute();
+
+        $tabEtats = $resultats->fetchAll(PDO::FETCH_ASSOC);
+
+        $tab = array();
+
+        foreach($tabEtats as $elem)
+        {
+            $etat = new Etat($elem);
+            $tab[] = $etat;
+
+        }
+
+        return $tab;
+    }
+
+
     public function getEtatById($id)
     {
         $query = $this->db->prepare("SELECT * FROM etat WHERE id = :id");
