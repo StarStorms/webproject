@@ -28,7 +28,7 @@ class Enigme
     /**
      * @param array $etat
      */
-    public function setEtat($etat)
+    public function setEtat(Etat $etat)
     {
         $this->etat = $etat;
     }

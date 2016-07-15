@@ -140,7 +140,7 @@ class Utilisateur
     /**
      * @param array $grade
      */
-    public function setGrade($grade)
+    public function setGrade(Grade $grade)
     {
         $this->grade = $grade;
     }
@@ -156,7 +156,7 @@ class Utilisateur
     /**
      * @param array $role
      */
-    public function setRole($role)
+    public function setRole(Role $role)
     {
         $this->role = $role;
     }

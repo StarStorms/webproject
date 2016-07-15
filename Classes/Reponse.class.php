@@ -106,7 +106,7 @@ class Reponse
     /**
      * @param array $niveau
      */
-    public function setNiveau($niveau)
+    public function setNiveau(Niveau $niveau)
     {
         $this->niveau = $niveau;
     }
