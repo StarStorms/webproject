@@ -26,4 +26,4 @@ mail = erwan@yopmail.com
 [HEADER]
 title = EnigmeLand
 banniere = Style/Banniere/banniere.jpg
-Description = Site des énigmes
+Description = Site des Ã‰nigmes
