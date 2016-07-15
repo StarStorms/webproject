@@ -60,6 +60,23 @@ class Enigmemanager
         return $enigme;
     }
 
+    public function getEnigmeByAuteur($auteur)
+    {
+        $query = $this->db->prepare("SELECT * FROM enigme WHERE auteur = :auteur");
+        $query->execute(array(
+            ":auteur" => $auteur
+        ));
+
+        if ($tabEnigme = $query->fetch(PDO::FETCH_ASSOC)) {
+            $enigme = new Enigme($tabEnigme);
+            $enigme->setEtat($this->getEtatEnigme($enigme->getId()));
+        } else {
+            $enigme = new Enigme(array());
+        }
+
+        return $enigme;
+    }
+
     public function getEnigmeByDateCrea($date_crea)
     {
         $query = $this->db->query("SELECT * FROM enigme ORDER BY date_crea DESC");
