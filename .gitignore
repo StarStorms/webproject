@@ -51,3 +51,5 @@ Temporary Items
 *.xml
 *.ids___jb_tmp___
 .idea/workspace.xml
+*.ids
+.idea/dataSources.xml
