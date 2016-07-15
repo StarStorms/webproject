@@ -1,0 +1,9 @@
+
+header {
+    text-align : center;
+    background-color : lightblue;
+    border : 1em solid black;
+    border-radius : 2px;
+    padding : 2em;
+    margin : 2em;
+}
