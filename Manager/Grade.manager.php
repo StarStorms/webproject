@@ -8,7 +8,7 @@
 
 class Grademanager
 {
-    private $db
+    private $db;
 
      /**
       * Fonction g�n�rant un manager en fonction de la BDD.
@@ -36,6 +36,6 @@ class Grademanager
 
         return $grade;
     }
-    }
+
 
 }

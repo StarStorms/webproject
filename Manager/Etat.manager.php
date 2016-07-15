@@ -9,7 +9,7 @@
 
 class Etatmanager
 {
-    private $db
+    private $db;
 
      /**
       * Fonction g�n�rant un manager en fonction de la BDD.
@@ -37,6 +37,6 @@ class Etatmanager
 
         return $etat;
     }
-    }
+
 
 }
