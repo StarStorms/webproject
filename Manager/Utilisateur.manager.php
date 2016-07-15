@@ -23,7 +23,7 @@ class UtilisateurManager
         $grade = $this->getUserGrade($user);
         $role = $this->getUserRole($user);
         $user->setGrade($grade);
-        $user->setRole($role)
+        $user->setRole($role);
         return $user;
     }
     public function getAllUser() {
