@@ -43,4 +43,11 @@ startSession();
 
         </ul>
     </div>
+    <article>
+
+    </article>
+    <footer>
+        <a href="mailto:<?php echo $cong['mail']; ?>">Contacter l'administrateur</a><br>
+        © Tous droits réservés à Erwan Samyn, Projet PMM 2016
+    </footer>
 </body>
