@@ -21,7 +21,7 @@ function verifyInscription()
         if (strlen($pseudo) < $conf['size_user_name_min'] && strlen($pseudo) > $conf['size_user_name_max']) {
             ?>
             <div class="alert alert-danger">
-                <strong>Erreur!</strong> Votre pseudo ne possËde pas la taille requise !
+                <strong>Erreur!</strong> Votre pseudo ne poss√©de pas la taille requise !
             </div>
             <?php
             $false = true;
@@ -29,7 +29,7 @@ function verifyInscription()
         if (strlen($mdp) < $conf['size_user_mdp']) {
             ?>
             <div class="alert alert-danger">
-                <strong>Erreur!</strong> Votre mot de passe ne possËde pas la taille requise !
+                <strong>Erreur!</strong> Votre mot de passe ne poss√©de pas la taille requise !
             </div>
             <?php
             $false = true;
@@ -37,7 +37,7 @@ function verifyInscription()
         if (strcmp($mail,$mailConfirm) != 0) {
             ?>
             <div class="alert alert-danger">
-                <strong>Erreur!</strong> Votre e-mail ne correspond pas ‡ sa confirmation !
+                <strong>Erreur!</strong> Votre e-mail ne correspond pas √† sa confirmation !
             </div>
             <?php
             $false = true;
@@ -45,7 +45,7 @@ function verifyInscription()
         if (strcmp($mdp,$mdpConfirm) != 0) {
             ?>
             <div class="alert alert-danger">
-                <strong>Erreur!</strong> Votre mot de passe ne correspond pas ‡ sa confirmation !
+                <strong>Erreur!</strong> Votre mot de passe ne correspond pas √† sa confirmation !
             </div>
             <?php
             $false = true;
@@ -55,7 +55,7 @@ function verifyInscription()
         if ($userTest->getId() != NULL) {
             ?>
             <div class="alert alert-danger">
-                <strong>Erreur!</strong> Votre pseudo est dÈj‡ pris !
+                <strong>Erreur!</strong> Votre pseudo est d√©j√† pris !
             </div>
             <?php
             $false = true;
@@ -66,7 +66,7 @@ function verifyInscription()
         if ($userTest->getId() != NULL) {
             ?>
             <div class="alert alert-danger">
-                <strong>Erreur!</strong> Votre e-mail est dÈj‡ pris !
+                <strong>Erreur!</strong> Votre e-mail est d√©j√† pris !
             </div>
             <?php
             $false = true;
@@ -96,7 +96,7 @@ function verifyInscription()
             $entete .= "MIME-Version: 1.0\r\n";
             $entete .= "Content-Type: text/html; charset=windows-1252\r\n";
             $message = '<html><body>';
-            $message .= '<div align="center"><h1> Bienvenue sur le site des Ènigmes !</h1></div>';
+            $message .= '<div align="center"><h1> Bienvenue sur le site des √©nigmes !</h1></div>';
             $message .= '<table rules="all" style="border-color: #666;" cellpadding="10" align="center">';
             $message .= "<tr style='background: #eee;'><td><strong>Nom d'utilisateur</strong> </td><td>" . $user->getNom() . "</td></tr>";
             $message .= "<tr><td><strong>Email:</strong> </td><td>" . $user->getEmail() . "</td></tr>";
@@ -106,7 +106,7 @@ function verifyInscription()
             mail($to, $sujet, $message, $entete);
             ?>
             <div class="alert alert-success">
-                <strong>Bravo!</strong> Votre inscription est complËte, vous avez reÁu un mail avec votre code d'activation !
+                <strong>Bravo!</strong> Votre inscription est compl√®te, vous avez re√ßu un mail avec votre code d'activation !
             </div>
             <?php
 
