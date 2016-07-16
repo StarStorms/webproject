@@ -44,7 +44,13 @@ startSession();
         </ul>
     </div>
     <article>
-
+        <?php
+            if ($_GET['page'] == "inscription") {
+                include "Form/Inscription.form.php";
+            } else {
+                
+            }
+        ?>
     </article>
     <footer>
         <a href="mailto:<?php echo $conf['mail']; ?>">Contacter l'administrateur</a><br>
