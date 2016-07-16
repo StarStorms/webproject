@@ -100,7 +100,7 @@ function verifyInscription()
             $message .= '<table rules="all" style="border-color: #666;" cellpadding="10" align="center">';
             $message .= "<tr style='background: #eee;'><td><strong>Nom d'utilisateur</strong> </td><td>" . $user->getNom() . "</td></tr>";
             $message .= "<tr><td><strong>Email:</strong> </td><td>" . $user->getEmail() . "</td></tr>";
-            $message .= "<tr><td><strong>Cliquez sur ce lien pour confirmer l'inscription :</strong> </td><td><a href='http://www.193.190.65.94/HE201085/TRAV/201608/index.php?page=activation&code=".$act->getCode()."' target='_blank'>http://www.193.190.65.94/HE201085/TRAV/201608/index.php?page=activation&code=".$act->getCode()." </a></td></tr>";
+            $message .= "<tr><td><strong>Cliquez sur ce lien pour confirmer l'inscription :</strong> </td><td><a href='http://193.190.65.94/HE201085/TRAV/201608/index.php?page=activation&code=".$act->getCode()."' target='_blank'>http://193.190.65.94/HE201085/TRAV/201608/index.php?page=activation&code=".$act->getCode()." </a></td></tr>";
             $message .= "</table>";
             $message .= "</body></html>";
             mail($to, $sujet, $message, $entete);
