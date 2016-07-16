@@ -20,7 +20,7 @@
     </div>
     <div class="form-group">
         <label for="emailConfirm">E-mail de confirmation: </label>
-        <input type="email" id="emailConfirm" name="emailConfirm" placeholder="Réencodez votre e-mail" required<?php if(isset($_POST['emailConfirm']))echo'value="'.$_POST['emailConfirm'].'"';?>>
+        <input type="email" id="emailConfirm" name="emailConfirm" placeholder="Réencodez votre e-mail" required <?php if(isset($_POST['emailConfirm']))echo'value="'.$_POST['emailConfirm'].'"';?>>
     </div>
     <div class="form-group">
         <label for="mdp">Mot de passe (4 caractéres min): </label>
