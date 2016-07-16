@@ -9,23 +9,12 @@
 function verifyInscription()
 {
 
-    $secret = "6Ld1PSUTAAAAAMIy40I9QBhaZkcBBSkmqfS91Jvi";
-    $response = null;
-    $captchaOK = false;
-    $reCaptcha = new ReCaptcha($secret);
+
     $conf = parse_ini_file("config.ini.php");
     $um = new UtilisateurManager(connexionDb());
     $false = false;
-    if (isset($_POST['g-recaptcha-response'])) {
-        $response = $reCaptcha->verifyResponse(
-            $_SERVER['REMOTE_ADDR'],
-            $_POST['g-recaptcha-response']
-        );
-    }
-    if ($response != null && $response->success) {
-        $captchaOK = true;
-    }
-    if ($captchaOK) {
+
+
         if (isset($_POST['name'])) {
             $pseudo = strtolower($_POST['name']);
             $mail = $_POST['email'];
@@ -151,12 +140,5 @@ function verifyInscription()
 
             }
         }
-    } else {
-        ?>
-        <div class="alert alert-danger">
-            <strong>Erreur!</strong> Le captcha n'est pas correct !
-        </div>
-        <?php
 
-    }
 }

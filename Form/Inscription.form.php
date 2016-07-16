@@ -42,11 +42,6 @@
             <input type="password" id="mdpConfirm" name="mdpConfirm" placeholder="Réencodez votre mot de passe"
                    required class="form-control">
         </div>
-        <br><br>
-
-        <div align="center" class="g-recaptcha"
-             data-sitekey="6Ld1PSUTAAAAAMIy40I9QBhaZkcBBSkmqfS91Jvi"></div>
-        <br>
         <button type="submit" class="btn btn-default">Envoyer</button>
     </form>
 </div>
