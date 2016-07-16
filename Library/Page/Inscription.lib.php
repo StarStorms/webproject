@@ -8,7 +8,8 @@
 
 function verifyInscription()
 {
-    $secret = "6Ld1PSUTAAAAABdS01OCR-xbi1NI-AMgMDpKfQYs";
+
+    $secret = "6Ld1PSUTAAAAAMIy40I9QBhaZkcBBSkmqfS91Jvi";
     $response = null;
     $captchaOK = false;
     $reCaptcha = new ReCaptcha($secret);
