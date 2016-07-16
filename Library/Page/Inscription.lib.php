@@ -103,6 +103,7 @@ function verifyInscription()
                 $act->setIdUtilisateur($user->getId());
                 $am->addActivation($act);
 
+<<<<<<< HEAD
                 $adresseAdmin = $conf['mail'];
                 $to = $user->getEmail();
                 $sujet = "Confirmation de l'inscription";
@@ -124,6 +125,28 @@ function verifyInscription()
                     d'activation !
                 </div>
                 <?php
+=======
+            $adresseAdmin = $conf['mail'];
+            $to = $user->getEmail();
+            $sujet = "Confirmation de l'inscription";
+            $entete = "From:" . $adresseAdmin . "\r\n";
+            $entete .= "MIME-Version: 1.0\r\n";
+            $entete .= "Content-Type: text/html; charset=windows-1252\r\n";
+            $message = '<html><body>';
+            $message .= '<div align="center"><h1> Bienvenue sur le site des énigmes !</h1></div>';
+            $message .= '<table rules="all" style="border-color: #666;" cellpadding="10" align="center">';
+            $message .= "<tr style='background: #eee;'><td><strong>Nom d'utilisateur</strong> </td><td>" . $user->getNom() . "</td></tr>";
+            $message .= "<tr><td><strong>Email:</strong> </td><td>" . $user->getEmail() . "</td></tr>";
+            $message .= "<tr><td><strong>Cliquez sur ce lien pour confirmer l'inscription :</strong> </td><td><a href='http://193.190.65.94/HE201085/TRAV/201608/index.php?page=activation&code=".$act->getCode()."' target='_blank'>http://193.190.65.94/HE201085/TRAV/201608/index.php?page=activation&code=".$act->getCode()." </a></td></tr>";
+            $message .= "</table>";
+            $message .= "</body></html>";
+            mail($to, $sujet, $message, $entete);
+            ?>
+            <div class="alert alert-success">
+                <strong>Bravo!</strong> Votre inscription est complète, vous avez reçu un mail avec votre code d'activation !
+            </div>
+            <?php
+>>>>>>> origin/master
 
             }
         }
