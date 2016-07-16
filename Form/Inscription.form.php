@@ -44,7 +44,7 @@
         </div>
         <br><br>
 
-        <div align="center" class="g-recaptcha" class="g-recaptcha"
+        <div align="center" class="g-recaptcha"
              data-sitekey="6Ld1PSUTAAAAAMIy40I9QBhaZkcBBSkmqfS91Jvi"></div>
         <br>
         <button type="submit" class="btn btn-default">Envoyer</button>
