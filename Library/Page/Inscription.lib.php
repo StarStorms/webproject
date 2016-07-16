@@ -86,11 +86,11 @@ function verifyInscription()
             $act = new Activation(array());
             $act->setCode($code);
             $act->setLibelle("Activation");
-            $act->getIdUtilisateur($user->getId());
+            $act->setIdUtilisateur($user->getId());
             $am->addActivation($act);
 
             $adresseAdmin = $conf['mail'];
-            $to = $user->getMail();
+            $to = $user->getEmail();
             $sujet = "Confirmation de l'inscription";
             $entete = "From:" . $adresseAdmin . "\r\n";
             $entete .= "MIME-Version: 1.0\r\n";
