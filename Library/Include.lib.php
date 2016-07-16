@@ -30,3 +30,4 @@ include "Manager/Question.manager.php";
 include "Manager/Reponse.manager.php";
 include "Manager/Role.manager.php";
 include "Manager/Utilisateur.manager.php";
+include "Library/reCaptcha.lib.php";
