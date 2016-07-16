@@ -34,7 +34,7 @@ startSession();
             <li><a href="index.php?page=enigme"> Enigmes</a></li>
             <li><a href="index.php?page=administration"> Administration</a></li>
             <li><a href="index.php?page=profil"> Profil</a></li>
-            <li><a href="index.php?page=deconnexion"> D�connexion</a></li>
+            <li><a href="index.php?page=deconnexion"> Déconnexion</a></li>
             <?php } else { ?>
             <li><a href="index.php?page=inscription"> Inscription</a></li>
             <li><a href="index.php?page=connexion"> Connexion</a></li>
@@ -47,13 +47,16 @@ startSession();
         <?php
         if(isset($_GET['page']))
         {
-
-
-        if ($_GET['page'] == "inscription") {
+            if ($_GET['page'] == "inscription") {
+                include "Library/Page/Inscription.lib.php";
                 include "Form/Inscription.form.php";
-            } else {
-                
+                verifyInscription();
             }
+            else if ($_GET['page'] == "connexion") {
+
+                include "Form/Connexion.form.php";
+            }
+
         }
         ?>
     </article>

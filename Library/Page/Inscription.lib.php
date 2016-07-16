@@ -105,6 +105,12 @@ function verifyInscription()
             $message .= "</body></html>";
             mail($to, $sujet, $message, $entete);
 
+            ?>
+            <div class="alert alert-success">
+                <strong>Bravo!</strong> Votre inscription est complète, vous avez reçu un mail avec votre code d'activation !
+            </div>
+            <?php
+
         }
     }
 }
