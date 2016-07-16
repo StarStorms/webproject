@@ -189,6 +189,7 @@ class UtilisateurManager
      */
     public function addUser(Utilisateur $user)
     {
+        var_dump($user);
         $query = $this
             ->db
             ->prepare("INSERT INTO utilisateur(nom, email, mdp, date_inscription, date_connexion) VALUES (:username, :email, :mdp,  NOW(),NOW())");
