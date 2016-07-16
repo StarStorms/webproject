@@ -45,11 +45,16 @@ startSession();
     </div>
     <article>
         <?php
-            if ($_GET['page'] == "inscription") {
+        if(isset($_GET['page']))
+        {
+
+
+        if ($_GET['page'] == "inscription") {
                 include "Form/Inscription.form.php";
             } else {
                 
             }
+        }
         ?>
     </article>
     <footer>
