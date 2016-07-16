@@ -13,7 +13,7 @@ size_user_name_max = 25
 size_user_mdp = 4
 [DATABASE]
 type = mysql
-host = 193.190.65.94
+host = localhost
 username = SAMYN
 password = Erwan4K9q
 dbname = 1516he201085
