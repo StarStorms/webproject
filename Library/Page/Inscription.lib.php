@@ -25,7 +25,7 @@ function verifyInscription()
     if ($response != null && $response->success) {
         $captchaOK = true;
     }
-    if (!$captchaOK) {
+    if ($captchaOK) {
         if (isset($_POST['name'])) {
             $pseudo = strtolower($_POST['name']);
             $mail = $_POST['email'];
