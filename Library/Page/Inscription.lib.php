@@ -103,7 +103,7 @@ function verifyInscription()
                 $act->setIdUtilisateur($user->getId());
                 $am->addActivation($act);
 
-<<<<<<< HEAD
+
                 $adresseAdmin = $conf['mail'];
                 $to = $user->getEmail();
                 $sujet = "Confirmation de l'inscription";
@@ -125,7 +125,7 @@ function verifyInscription()
                     d'activation !
                 </div>
                 <?php
-=======
+
             $adresseAdmin = $conf['mail'];
             $to = $user->getEmail();
             $sujet = "Confirmation de l'inscription";
@@ -146,7 +146,7 @@ function verifyInscription()
                 <strong>Bravo!</strong> Votre inscription est complète, vous avez reçu un mail avec votre code d'activation !
             </div>
             <?php
->>>>>>> origin/master
+
 
             }
         }
