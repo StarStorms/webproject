@@ -14,6 +14,7 @@
         <p>Remplissez les champs ci-dessous pour pouvoir vous inscrire sur le site.</p>
     </div>
 </div>
+<div class="container">
 <form action="index.php?page=inscription" method="post">
     <div class="form-group">
         <label for="name">Pseudo : </label>
@@ -37,3 +38,4 @@
     </div>
     <button type="submit" class="btn btn-default">Envoyer</button>
 </form>
+</div>
