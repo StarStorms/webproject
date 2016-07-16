@@ -8,7 +8,12 @@
 
 ?>
 
-
+<div class="container">
+    <div class="jumbotron">
+        <h1>Formulaire d'inscription</h1>
+        <p>Remplissez les champs ci-dessous pour pouvoir vous inscrire sur le site.</p>
+    </div>
+</div>
 <form action="index.php?page=inscription" method="post">
     <div class="form-group">
         <label for="name">Pseudo : </label>
