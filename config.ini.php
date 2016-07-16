@@ -8,7 +8,8 @@
  ?>
 ;<?php echo "Acces refuse"; exit;?>
 [CONSTANTE]
-size_user_name = 5
+size_user_name_min = 5
+size_user_name_max = 25
 size_user_mdp = 4
 [DATABASE]
 type = mysql

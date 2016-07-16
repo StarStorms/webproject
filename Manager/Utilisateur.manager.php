@@ -196,7 +196,7 @@ class UtilisateurManager
         $query->execute(array(
             ":username" => $user->getNom(),
             ":email" => $user->getEmail(),
-            ":mdp" => hash("sha256", $this->getMdp())
+            ":mdp" => hash("sha256", $user->getMdp())
         ));
     }
 
