@@ -47,13 +47,13 @@ startSession();
         <?php
         if(isset($_GET['page']))
         {
-
-
         if ($_GET['page'] == "inscription") {
                 include "Form/Inscription.form.php";
-            } else {
-                
+            } else if ($_GET['page'] == "connexion") {
+
+                include "Form/Connexion.form.php";
             }
+
         }
         ?>
     </article>

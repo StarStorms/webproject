@@ -10,6 +10,7 @@
 <div class="container">
     <div class="jumbotron">
         <h1>Connexion au site</h1>
+        <p>Complétez les champs ci-dessous pour vous connecter.</p>
     </div>
 </div>
 <div class="container">
