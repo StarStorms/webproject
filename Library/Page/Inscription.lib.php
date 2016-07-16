@@ -77,6 +77,7 @@ function verifyInscription()
             $user->setNom($pseudo);
             $user->setEmail($mail);
             $user->setMdp($mdp);
+            var_dump($user);
             $um->addUser($user);
             $user = $um->getUserByUserName($pseudo);
             $um->setUserGrade($user,6);
