@@ -11,8 +11,8 @@ class UtilisateurManager
     private $db;
 
     /**
-     * Fonction générant un manager en fonction de la BDD.
-     * @param PDO $database : la base de données.
+     * Fonction gï¿½nï¿½rant un manager en fonction de la BDD.
+     * @param PDO $database : la base de donnï¿½es.
      */
     public function __construct(PDO $database)
     {
@@ -90,7 +90,7 @@ class UtilisateurManager
         $query = $this->db->prepare("INSERT INTO utilisateur_role(id_role, id_utilisateur) values (:idRole, :idUser)");
         $query->execute(array(
             ":idUser" => $user->getId(),
-            ":idGrade" => $role
+            ":idRole" => $role
         ));
     }
 
@@ -143,7 +143,7 @@ class UtilisateurManager
     /**
      * Fonction permettant de retrouver un user en fonction de son nom.
      * @param $userName : le nom de l'utilisateur.
-     * @return Utilisateur : la classe utilisateur trouvée.
+     * @return Utilisateur : la classe utilisateur trouvï¿½e.
      */
     public function getUserByUserName($userName)
     {
@@ -184,8 +184,8 @@ class UtilisateurManager
     }
 
     /**
-     * Fonction permettant d'ajouter un utilisateur à la BDD.
-     * @param Utilisateur $user : l'utilisateur à ajouter.
+     * Fonction permettant d'ajouter un utilisateur ï¿½ la BDD.
+     * @param Utilisateur $user : l'utilisateur ï¿½ ajouter.
      */
     public function addUser(Utilisateur $user)
     {

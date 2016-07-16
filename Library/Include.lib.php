@@ -6,6 +6,7 @@
  * Time: 21:40
  */
 
+include "Library/Fonctions.lib.php";
 include "Library/Config.lib.php";
 include "Library/Database.lib.php";
 include "Library/Session.lib.php";

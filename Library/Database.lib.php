@@ -9,7 +9,7 @@
 function connexionDb()
 {
     $confDb = getConfigFile()['DATABASE'];
-    
+
 
     $type = $confDb['type'];
     $host = $confDb['host'];
