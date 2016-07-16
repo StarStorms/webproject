@@ -84,3 +84,7 @@ body {
     padding-top : 5px;
 
 }
+
+.alert {
+    text-align : center;
+}
