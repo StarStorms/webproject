@@ -53,3 +53,8 @@ Temporary Items
 .idea/workspace.xml
 *.ids
 .idea/dataSources.xml
+.idea/dataSources.ids
+.idea/dataSources.local.xml
+.idea/dataSources.xml
+*.ids
+.idea/dataSources.local.xml
