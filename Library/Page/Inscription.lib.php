@@ -21,7 +21,7 @@ function verifyInscription()
             $mailConfirm = $_POST['emailConfirm'];
             $mdp = $_POST['mdp'];
             $mdpConfirm = $_POST['mdpConfirm'];
-
+            
             if (strlen($pseudo) < $conf['size_user_name_min'] && strlen($pseudo) > $conf['size_user_name_max']) {
                 ?>
                 <div class="alert alert-danger">
@@ -115,7 +115,7 @@ function verifyInscription()
                     d'activation !
                 </div>
                 <?php
-
+/*
             $adresseAdmin = $conf['mail'];
             $to = $user->getEmail();
             $sujet = "Confirmation de l'inscription";
@@ -136,6 +136,8 @@ function verifyInscription()
                 <strong>Bravo!</strong> Votre inscription est complète, vous avez reçu un mail avec votre code d'activation !
             </div>
             <?php
+  */
+ 
 
 
             }

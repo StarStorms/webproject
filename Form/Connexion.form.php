@@ -14,7 +14,7 @@
     </div>
 </div>
 <div class="container">
-<form action="index.php?page=inscription" method="post" class="form-horizontal">
+<form action="index.php?page=connexion_req" method="post" class="form-horizontal">
     <div class="form-group">
         <label for="name">Pseudo : </label>
         <input type="text" id="name" name="name" placeholder="Votre Pseudo" class="form-control" required <?php if(isset($_POST['name']))echo'value="'.$_POST['name'].'"';?>>

@@ -31,7 +31,7 @@ startSession();
         <ul>
             <li><a href="index.php"> Accueil</a></li>
             <li><a href="index.php?page=recherche"> Recherches</a></li>
-            <?php if (isset($_SESSION['Utilisateur'])) { ?>
+            <?php if (isset($_SESSION['connected']) && $_SESSION['connected'] == true) { ?>
             <li><a href="index.php?page=enigme"> Enigmes</a></li>
             <li><a href="index.php?page=administration"> Administration</a></li>
             <li><a href="index.php?page=profil"> Profil</a></li>
@@ -54,10 +54,29 @@ startSession();
                 verifyInscription();
             }
             else if ($_GET['page'] == "connexion") {
-
                 include "Form/Connexion.form.php";
             }
+            else if ($_GET['page'] == "connexion_req")
+            {
+                include "Library/Page/Connexion.lib.php";
+                connectUser();
+                //header("refresh:3;url=index.php" );
 
+            }
+            else if ($_GET['page'] == "enigme") {
+                //todo
+            }
+            else if ($_GET['page'] == "administration") {
+                //todo
+            }
+            else if ($_GET['page'] == "deconnexion") {
+                session_destroy();
+                include "Form/Deconnexion.form.php";
+                header("refresh:3;url=index.php" );
+            }
+            else if ($_GET['page'] == "profil") {
+                //todo
+            }
         }
         ?>
     </article>

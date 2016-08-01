@@ -31,7 +31,6 @@ class UtilisateurManager
         $resultats->execute();
 
         $tabUser = $resultats->fetchAll(PDO::FETCH_ASSOC);
-
         $tab = array();
 
         foreach($tabUser as $elem)
@@ -257,5 +256,18 @@ class UtilisateurManager
                 ":mdp" => hash("sha256",$user->getMdp())
             ));
     }
-
+    
+    public function verifyMdp ($name, $mdp) {
+        //TODO verifier injection sql
+        $resultats = $this
+                ->db
+                ->query("SELECT mdp FROM utilisateur WHERE nom = '".$name."'");
+        
+        $tabUser = $resultats->fetchAll(PDO::FETCH_ASSOC);
+        if(count($tabUser) == 1 && $tabUser[0]['mdp'] == hash('sha256', $mdp))
+        {
+            return true;
+        }
+        return false;
+    }
 }

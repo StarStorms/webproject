@@ -18,14 +18,33 @@ function connectUser() {
         $result=$um->verifyMdp($pseudo, $mdp);
         if($result == true)
         {
-            $_SESSION['Utilisateur'] = $pseudo;
-            $_SESSION['connected'] = true;
+            $user=$um->getUserByUserName($pseudo);
+            $grade = $um->getUserGrade($user);
+            if($grade->getId()==1 || 
+               $grade->getId()==2 || 
+               $grade->getId()== 5)
+            {
+                $_SESSION['Utilisateur'] = $pseudo;
+                $_SESSION['connected'] = true;
 ?>
-            <div class="alert alert-success">
-                <strong>Succes</strong> Vous êtes connecté(e) !
-            </div>
+                <div class="alert alert-success">
+                    <strong>Succes</strong> Vous êtes connecté(e) !
+                </div>
 <?php
-        } else {
+            
+            }
+            else
+            {
+?>
+                <div class="alert alert-danger">
+                    <strong>Erreur!</strong> Votre compte en actuellement dans l'état : 
+                    <strong><?php echo($grade->getLibelle())?></strong>
+                </div>
+<?php
+            }
+        } 
+        else 
+        {
             $_SESSION['connected'] = false;
 ?>
               <div class="alert alert-danger">
