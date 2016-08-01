@@ -24,7 +24,8 @@ function connectUser() {
                $grade->getId()==2 || 
                $grade->getId()== 5)
             {
-                $_SESSION['Utilisateur'] = $pseudo;
+                $_SESSION['Utilisateur'] = $user->getNom();
+                $_SESSION['id'] = $user->getId();
                 $_SESSION['connected'] = true;
 ?>
                 <div class="alert alert-success">

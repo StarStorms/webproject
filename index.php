@@ -21,6 +21,7 @@ startSession();
 <body>
     <?php
     $conf = parse_ini_file("config.ini.php");
+    include "Library/Page/QR.lib.php";
     ?>
     <header>
         <img src="<?php echo $conf['banniere']; ?>" alt="Bannière du site" class="img-responsive"><br>
@@ -35,6 +36,7 @@ startSession();
             <li><a href="index.php?page=enigme"> Enigmes</a></li>
             <li><a href="index.php?page=administration"> Administration</a></li>
             <li><a href="index.php?page=profil"> Profil</a></li>
+            <?php requestQR(); ?>
             <li><a href="index.php?page=deconnexion"> Déconnexion</a></li>
             <?php } else { ?>
             <li><a href="index.php?page=inscription"> Inscription</a></li>
@@ -60,8 +62,7 @@ startSession();
             {
                 include "Library/Page/Connexion.lib.php";
                 connectUser();
-                //header("refresh:3;url=index.php" );
-
+                header("refresh:3;url=index.php" );
             }
             else if ($_GET['page'] == "enigme") {
                 //todo
@@ -73,6 +74,15 @@ startSession();
                 session_destroy();
                 include "Form/Deconnexion.form.php";
                 header("refresh:3;url=index.php" );
+            }
+            else if ($_GET['page'] == "QR") {
+                include "Form/QR.form.php";
+            }
+            else if ($_GET['page'] == "QR_req") {
+                //include "Library/Page/QR.lib.php";
+                setQR();
+                header("refresh:3;url=index.php" );
+
             }
             else if ($_GET['page'] == "profil") {
                 //todo
