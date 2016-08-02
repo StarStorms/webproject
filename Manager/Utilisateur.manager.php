@@ -64,7 +64,7 @@ class UtilisateurManager
         return $gradeUser;
     }
 
-    public function setUserGrade(Utilisateur $user, $grade)
+    public function (setUserGrade(Utilisateur $user, $grade)
     {
 
         $query = $this->db->prepare("INSERT INTO utilisateur_grade(id_grade, id_utilisateur) values (:idGrade, :idUser)");

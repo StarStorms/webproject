@@ -6,10 +6,74 @@
  * Time: 14:18
  */
 
+function activateUser() {
+    if(isset($_GET['code'])) 
+    {
+        $conf = parse_ini_file("config.ini.php");
+        $am = new ActivationManager(connexionDb());
+        $um = new UtilisateurManager(connexionDb());
+        
+        $act = $am->getActivationByCode($_GET['code']);
+        $am->deleteActivation($userId, "Activation");
+        if(isset($act) && strcmp($act->getLibelle(), "Activation") == 0) 
+        {
+            $userId = $act->getIdUtilisateur();
+            $user = $um->getUserById($userId);
+            if($user->getGrade() == 6)
+            {            
+                $am->deleteActivation($userId, "Activation");
+                $user->setGrade(5);
+?>
+                <div class="alert alert-success">
+                    <strong>Succes</strong> Votre compte est maintenant confirmé !
+                </div>
+<?php
+                return;
+            }
+        }
+    }
+?>
+    <div class="alert alert-danger">
+        <strong>Erreur!</strong> Une erreur est surevenue !
+    </div>
+<?php
+}
+
+function setActivation(Utilisateur $user) {
+    $conf = parse_ini_file("config.ini.php");
+
+    $am = new ActivationManager(connexionDb());
+    $code = genererCode();
+    $act = new Activation(array());
+    $act->setCode($code);
+    $act->setLibelle("Activation");
+    $act->setIdUtilisateur($user->getId());
+    $am->addActivation($act);
+
+    $adresseAdmin = $conf['mail'];
+    $to = $user->getEmail();
+    $sujet = "Confirmation de l'inscription";
+    $entete = "From:" . $adresseAdmin . "\r\n";
+    $entete .= "MIME-Version: 1.0\r\n";
+    $entete .= "Content-Type: text/html; charset=windows-1252\r\n";
+    $message = '<html><body>';
+    $message .= '<div align="center"><h1> Bienvenue sur le site des énigmes !</h1></div>';
+    $message .= '<table rules="all" style="border-color: #666;" cellpadding="10" align="center">';
+    $message .= "<tr style='background: #eee;'><td><strong>Nom d'utilisateur</strong> </td><td>" . $user->getNom() . "</td></tr>";
+    $message .= "<tr><td><strong>Email:</strong> </td><td>" . $user->getEmail() . "</td></tr>";
+    $message .= "<tr><td><strong>Cliquez sur ce lien pour confirmer l'inscription :</strong> </td><td><a href='http://www.193.190.65.94/HE201085/TRAV/201608/index.php?page=activation&code=" . $act->getCode() . "' target='_blank'>http://www.193.190.65.94/HE201085/TRAV/201608/index.php?page=activation&code=" . $act->getCode() . " </a></td></tr>";
+    $message .= "</table>";
+    $message .= "</body></html>";
+    mail($to, $sujet, $message, $entete);
+    ?>
+    <div class="alert alert-success">
+        <strong>Bravo!</strong> Vous avez reçu un mail avec votre code d'activation !
+    </div>
+    <?php
+} 
+
 function verifyInscription()
 {
-
-
     $conf = parse_ini_file("config.ini.php");
     $um = new UtilisateurManager(connexionDb());
     $false = false;
@@ -85,36 +149,8 @@ function verifyInscription()
                 $user = $um->getUserByUserName($pseudo);
                 $um->setUserGrade($user, 6);
                 $um->setUserRole($user, 1);
-                $am = new ActivationManager(connexionDb());
-                $code = genererCode();
-                $act = new Activation(array());
-                $act->setCode($code);
-                $act->setLibelle("Activation");
-                $act->setIdUtilisateur($user->getId());
-                $am->addActivation($act);
-
-
-                $adresseAdmin = $conf['mail'];
-                $to = $user->getEmail();
-                $sujet = "Confirmation de l'inscription";
-                $entete = "From:" . $adresseAdmin . "\r\n";
-                $entete .= "MIME-Version: 1.0\r\n";
-                $entete .= "Content-Type: text/html; charset=windows-1252\r\n";
-                $message = '<html><body>';
-                $message .= '<div align="center"><h1> Bienvenue sur le site des énigmes !</h1></div>';
-                $message .= '<table rules="all" style="border-color: #666;" cellpadding="10" align="center">';
-                $message .= "<tr style='background: #eee;'><td><strong>Nom d'utilisateur</strong> </td><td>" . $user->getNom() . "</td></tr>";
-                $message .= "<tr><td><strong>Email:</strong> </td><td>" . $user->getEmail() . "</td></tr>";
-                $message .= "<tr><td><strong>Cliquez sur ce lien pour confirmer l'inscription :</strong> </td><td><a href='http://www.193.190.65.94/HE201085/TRAV/201608/index.php?page=activation&code=" . $act->getCode() . "' target='_blank'>http://www.193.190.65.94/HE201085/TRAV/201608/index.php?page=activation&code=" . $act->getCode() . " </a></td></tr>";
-                $message .= "</table>";
-                $message .= "</body></html>";
-                mail($to, $sujet, $message, $entete);
-                ?>
-                <div class="alert alert-success">
-                    <strong>Bravo!</strong> Votre inscription est complète, vous avez reçu un mail avec votre code
-                    d'activation !
-                </div>
-                <?php
+                
+                setActivation($user);
 /*
             $adresseAdmin = $conf['mail'];
             $to = $user->getEmail();
