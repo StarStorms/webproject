@@ -23,6 +23,9 @@
         <label for="mdp">Mot de passe : </label>
         <input type="password" id="mdp" name="mdp" placeholder="Votre mot de passe" required class="form-control">
     </div>
+    <div class="mdp_perdu">
+        <li><a href="index.php?page=mdp_perdu">J'ai perdu mon mot de passe</a></li>
+    </div>
     <button type="submit" class="btn btn-default">Envoyer</button>
 </form>
 </div>

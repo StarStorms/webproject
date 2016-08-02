@@ -87,6 +87,9 @@ startSession();
             else if ($_GET['page'] == "profil") {
                 //todo
             }
+            else if ($_GET['page'] == "mdp_perdu") {
+                include "Form/mdp_perdu.form.php";
+            }
         }
         ?>
     </article>
