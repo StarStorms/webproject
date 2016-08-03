@@ -90,9 +90,15 @@ startSession();
             else if ($_GET['page'] == "mdp_perdu") {
                 include "Form/mdp_perdu.form.php";
             }
-            else if ($_GET['page'] == "mdp_perdu_mail") {
+            else if ($_GET['page'] == "recuperation") {
+                /* On arrive ici apres le mail envoye par sendMailRecuperation dans Mdp_perdu.lib.php */
                 include "Library/Page/Mdp_perdu.lib.php";
-                $res = verifMdpReinitialisation($_POST['user_name']);
+                reactivateUser();
+            }
+            else if ($_GET['page'] == "mdp_perdu_mail") {
+                /* Formulaire posté depuis la fonction reactivateUser dans Mdp_perdu.lib.php */
+                include "Library/Page/Mdp_perdu.lib.php";
+                $res = verifMdpReinitialisation($_SESSION['pseudo_recup']);
                 /* TODO A ameliorer : redemander un mdp si erreur */
                 if($res == false)
                 {

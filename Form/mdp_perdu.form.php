@@ -47,6 +47,7 @@
             $_SESSION['connected'] = false;
             $_SESSION['pseudo_recup'] = $_POST['name'];
             $_SESSION['question'] = retrieveQuestion();
+            setRecupGrade($_SESSION['pseudo_recup']);
             if(!isset($_SESSION['question'] ) || $_SESSION['question']  == NULL || $_SESSION['question']  == false || strlen($_SESSION['question'] ) == 0) {
                 
                 sendMailRecuperation($_SESSION['pseudo_recup']);
@@ -57,7 +58,7 @@
             </div>
 <?php
             session_destroy();
-            header("refresh:3;url=index.php" );
+            //header("refresh:3;url=index.php" );
 
           }
             else
