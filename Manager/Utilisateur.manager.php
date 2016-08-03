@@ -64,7 +64,7 @@ class UtilisateurManager
         return $gradeUser;
     }
 
-    public function (setUserGrade(Utilisateur $user, $grade)
+    public function setUserGrade(Utilisateur $user, $grade)
     {
 
         $query = $this->db->prepare("INSERT INTO utilisateur_grade(id_grade, id_utilisateur) values (:idGrade, :idUser)");
@@ -129,14 +129,12 @@ class UtilisateurManager
         ));
 
         if ($tabUser = $query->fetch(PDO::FETCH_ASSOC)) {
+            print_r($tabUser);
             $user = new Utilisateur($tabUser);
             $user = $this->userGradeAndRole($user);
         } else {
             $user = new Utilisateur(array());
         }
-
-
-
         return $user;
     }
     /**

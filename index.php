@@ -103,8 +103,8 @@ startSession();
 <?php
                 }
             }
-            else if ($_GETt['page'] == "activation") {
-                include "Library/Inscription.lib.php";
+            else if ($_GET['page'] == "activation") {
+                include "Library/Page/Inscription.lib.php";
                 activateUser();
             }
         }

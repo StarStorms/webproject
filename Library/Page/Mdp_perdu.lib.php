@@ -89,7 +89,8 @@ function sendMailRecuperation($pseudo)
     $message .= "<tr><td><strong>Cliquez sur ce lien pour retrouver votre mot de passe :</strong> </td><td><a href='" . $url . "'>" . $url . "</a></td></tr>";
     $message .= "</table>";
     $message .= "</body></html>";
-    mail($to, $sujet, $message, $entete);
+    echo("<h1> MAIL : </h1><br />"/$message." <br />");
+    //mail($to, $sujet, $message, $entete);
 }
 
 function verifMdpReinitialisation($pseudo) 

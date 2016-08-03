@@ -19,11 +19,12 @@ function activateUser() {
         {
             $userId = $act->getIdUtilisateur();
             $user = $um->getUserById($userId);
-            if($user->getGrade() == 6)
+            $userGrade = $user->getGrade();
+            if($userGrade->getId() == 6)
             {            
                 $am->deleteActivation($userId, "Activation");
-                $user->setGrade(5);
-?>
+                $um->updateUserGrade($userId, 5);
+  ?>
                 <div class="alert alert-success">
                     <strong>Succes</strong> Votre compte est maintenant confirmé !
                 </div>
@@ -64,7 +65,8 @@ function setActivation(Utilisateur $user) {
     $message .= "<tr><td><strong>Cliquez sur ce lien pour confirmer l'inscription :</strong> </td><td><a href='http://www.193.190.65.94/HE201085/TRAV/201608/index.php?page=activation&code=" . $act->getCode() . "' target='_blank'>http://www.193.190.65.94/HE201085/TRAV/201608/index.php?page=activation&code=" . $act->getCode() . " </a></td></tr>";
     $message .= "</table>";
     $message .= "</body></html>";
-    mail($to, $sujet, $message, $entete);
+     echo("<h1> MAIL : </h1><br />".$message." <br />");
+    //mail($to, $sujet, $message, $entete);
     ?>
     <div class="alert alert-success">
         <strong>Bravo!</strong> Vous avez reçu un mail avec votre code d'activation !
@@ -150,6 +152,7 @@ function verifyInscription()
                 $um->setUserGrade($user, 6);
                 $um->setUserRole($user, 1);
                 
+                echo("enter function");
                 setActivation($user);
 /*
             $adresseAdmin = $conf['mail'];
