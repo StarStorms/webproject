@@ -24,31 +24,44 @@ function verifyPseudoExist($pseudo)
 
 }
 
-function retrieveQuestion()
-{
+function verifyEmailExist($mail) 
+{    
+    echo("<br />Verify EMAIL : ".$mail);
     $conf = parse_ini_file("config.ini.php");
-    $um = new UtilisateurManager(connexionDb());    
-    if(isset($_POST['name']) && strlen($_POST['name'])>0)
+    $um = new UtilisateurManager(connexionDb());
+    $user = $um->getUserByEmail($mail);
+    
+    if(!isset($user) || $user->getId() == NULL)
     {
-        $pseudo = strtolower($_POST['name']);
-        $user = $um->getUserByUserName($pseudo);
-            $question = $user->getQuestionSecrete();
-            return $question;
+        return false;
     }
+    else 
+    {
+       return true;
+    }
+
 }
 
-function VerifierReponseSecrete() {    
+function VerifierReponseSecrete($mail) {    
     if(!isset($_POST['reponse']))
     {
         return false;
     }
+        echo("<br />mail : ".$mail);
+    echo("<br />REPONSE : ".$_POST['reponse']);
     
     $conf = parse_ini_file("config.ini.php");
     $um = new UtilisateurManager(connexionDb());
-    $user = $um->getUserByUserName($pseudo);
+    $user = $um->getUserByEmail($mail);
 
     $bonneRep = $user->getReponseSecrete();
+    
+    echo("<br />Bonne rep : ".$bonneRep);
+
+    
     $rep = hash("sha256", $_POST['reponse']);
+        echo("<br />rep : ".$rep);
+
     if($rep == $bonneRep)
     {
         return true;
@@ -59,17 +72,17 @@ function VerifierReponseSecrete() {
     }
 }
 
-function sendMailRecuperation($pseudo)
+function sendMailRecuperation($mail)
 {
     $conf = parse_ini_file("config.ini.php");
     $um = new UtilisateurManager(connexionDb());
-    $user = $um->getUserByUserName($pseudo);
+    $user = $um->getUserByEmail($mail);
     
     $am = new ActivationManager(connexionDb());
     $code = genererCode();
     $act = new Activation(array());
     $act->setCode($code);
-    $act->setLibelle("Reactivation");
+    $act->setLibelle("Mot de passe perdu");
     $act->setIdUtilisateur($user->getId());
     $am->addActivation($act);
     
@@ -93,11 +106,11 @@ function sendMailRecuperation($pseudo)
     //mail($to, $sujet, $message, $entete);
 }
 
-function verifMdpReinitialisation($pseudo) 
+function verifMdpReinitialisation($userId) 
 {
     $conf = parse_ini_file("config.ini.php");
     $um = new UtilisateurManager(connexionDb());
-    $user = $um->getUserByUserName($pseudo);
+    $user = $um->getUserById($userId);
        
     if(isset($_POST['mdp']) && isset($_POST['mdpConfirm'])
        && strlen($_POST['mdp']) > 4 && strcmp($_POST['mdp'], $_POST['mdpConfirm']) == 0)
@@ -119,51 +132,71 @@ function verifMdpReinitialisation($pseudo)
     }
 }
 
-function setRecupGrade($pseudo) {
+function setRecupGrade($mail)
+{
     $conf = parse_ini_file("config.ini.php");
     $um = new UtilisateurManager(connexionDb());
-    $user = $um->getUserByUserName($pseudo);
+    $user = $um->getUserByEmail($mail);
     $userId = $user->getId();
     $um->updateUserGrade($userId, 3);
 }
 
-function reactivateUser() {
-    if(isset($_GET['code'])) 
+function setMDPPerduGrade($mail)
+{
+    $conf = parse_ini_file("config.ini.php");
+    $um = new UtilisateurManager(connexionDb());
+    $user = $um->getUserByEmail($mail);
+    $userId = $user->getId();
+    $um->updateUserGrade($userId, 4);
+}
+
+function deleteReactivation($code) 
+{
+    $conf = parse_ini_file("config.ini.php");
+    $am = new ActivationManager(connexionDb());
+    $act = $am->getActivationByCode($code);
+    $userId = $act->getIdUtilisateur();
+    $am->deleteActivation($act->getId(), $act->getLibelle());
+}
+
+function getUserFromRecativationCode($code)
+{
+    echo("<br />getUserFromRecativationCode : ".$code);
+    if($code != NULL)
     {
         $conf = parse_ini_file("config.ini.php");
         $am = new ActivationManager(connexionDb());
         $um = new UtilisateurManager(connexionDb());
-        $act = $am->getActivationByCode($_GET['code']);
-        if(isset($act) && strcmp($act->getLibelle(), "Reactivation") == 0) 
+        $act = $am->getActivationByCode($code);
+        echo("<br />act libel : ".$act->getLibelle());
+        if(isset($act) && strcmp($act->getLibelle(), "Mot de passe perdu") == 0) 
         {
             $userId = $act->getIdUtilisateur();
+            echo("<br /> user id from act: ".$userId);
             $user = $um->getUserById($userId);
-            $grade = $user->getGrade();
-            if($grade->getId() == 3)
+            
+            if($user->getNom() != NULL && strlen($user->getNom()) > 0)
             {
-                $am->deleteActivation($userId, "Reactivation");
-                $_SESSION['pseudo_recup'] = $user->getNom();
-?>
-            <form action="index.php?page=mdp_perdu_mail" method="post" class="form-horizontal">
-                <div class="form-group">
-                    <label for="mdp">Réinitalisez votre mot de passe (4 caractères min): </label>
-                    <input type="password" id="mdp" name="mdp" placeholder="Votre mot de passe" required class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="mdpConfirm">Mot de passe de confirmation: </label>
-                    <input type="password" id="mdpConfirm" name="mdpConfirm" placeholder="Réencodez votre mot de passe" required class="form-control">
-                </div>
-                <button type="submit" class="btn btn-default">Envoyer</button>
-            </form>
-<?php
-             
-                return;
+                return $user;
             }
+        }        
+    }
+    
+    return NULL;
+}
+
+function getQuestionSecreteFromReactivationCode($code) 
+{
+    echo("<br />getQuestionSecreteFromReactivationCode : ".$code);
+    $user = getUserFromRecativationCode($code);
+    echo("<br /> user id : ".$user->getId());
+    if($user != NULL)
+    {
+        $question = $user->getQuestionSecrete();
+        if($question != NULL && strlen($question) > 0)
+        {
+            return $question;
         }
     }
-?>
-    <div class="alert alert-danger">
-        <strong>Erreur!</strong> Une erreur est surevenue !
-    </div>
-<?php
+    return NULL;
 }

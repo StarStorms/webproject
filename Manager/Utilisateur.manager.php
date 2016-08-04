@@ -169,6 +169,8 @@ class UtilisateurManager
 
         if($tabUser = $query->fetch(PDO::FETCH_ASSOC))
         {
+            echo("<br />USER : ");
+            print_r($tabUser);
             $user = new Utilisateur($tabUser);
             $user = $this->userGradeAndRole($user);
         }

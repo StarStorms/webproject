@@ -122,10 +122,4 @@ class Enigmemanager
 
         return $enigme;
     }
-
-
-
-
-
-
 }

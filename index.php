@@ -91,23 +91,16 @@ startSession();
                 include "Form/mdp_perdu.form.php";
             }
             else if ($_GET['page'] == "recuperation") {
-                /* On arrive ici apres le mail envoye par sendMailRecuperation dans Mdp_perdu.lib.php */
-                include "Library/Page/Mdp_perdu.lib.php";
-                reactivateUser();
+                echo("<br />RECUPERATION");
+               include "Form/QuestionSecrete.form.php";
             }
-            else if ($_GET['page'] == "mdp_perdu_mail") {
-                /* Formulaire posté depuis la fonction reactivateUser dans Mdp_perdu.lib.php */
+            else if ($_GET['page'] == "reponse_secrete") {
                 include "Library/Page/Mdp_perdu.lib.php";
-                $res = verifMdpReinitialisation($_SESSION['pseudo_recup']);
-                /* TODO A ameliorer : redemander un mdp si erreur */
-                if($res == false)
-                {
-?>
-                    <div class="alert alert-danger">
-                        <strong>Erreur!</strong> Une erreur est surevenue ! Veuillez recommencer la procédure de récupération de mot de passe.
-                    </div>
-<?php
-                }
+                include "Form/VerifierReponseSecrete.form.php";
+                
+            }
+            else if ($_GET['page'] == "reinitialiser_mdp") {
+                include "Form/ReinitialiserMdp.form.php";
             }
             else if ($_GET['page'] == "activation") {
                 include "Library/Page/Inscription.lib.php";
