@@ -56,4 +56,19 @@ class Indicemanager
         return $indice;
     }
 
+    
+    public function addIndice(Indice $indice)
+    {
+        $query = $this
+            ->db
+            ->prepare("INSERT INTO indice(enigme, texte, image, date_crea) VALUES (:enigme, :texte, :image, NOW())");
+
+        $query->execute(array(
+            ":enigme" => $indice->getEnigme(),
+            ":texte" => $indice->getTexte(),
+            ":image" => $indice->getImage()
+                ));
+        
+        
+    }
 }

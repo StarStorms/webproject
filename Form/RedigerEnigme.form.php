@@ -27,6 +27,15 @@ if(isset($_SESSION['connected']) && $_SESSION['connected'] == true)
                     <label for="enigme">Votre énigme : (4 caractères min)</label>
                     <input type="textarea" id="enigme" name="enigme" required class="form-control" required />
                 </div>
+                <div class="form-group">
+                    <label for="enigme">Indice : (falcutatif)</label>
+                    <input type="textarea" id="indice" name="indice" required class="form-control" required />
+                </div>
+                 <div class="form-group">
+                    <label for="enigme">Image de l'indice : (falcutatif) </label>
+                    <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+                    <input type="file" name="indice_picture" />
+                </div>
                 <button type="submit" class="btn btn-default">Envoyer</button>
             </form>
         </div>
@@ -48,7 +57,7 @@ if(isset($_SESSION['connected']) && $_SESSION['connected'] == true)
         {
 ?>
             <div class="alert alert-success">
-                <strong>Succes</strong>Votre énigme a été postée
+                <strong>Succes</strong> Votre énigme a été postée
             </div>
 <?php
         }

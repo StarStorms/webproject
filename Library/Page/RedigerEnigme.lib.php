@@ -19,14 +19,37 @@ function posterEnigme()
         {
             $fichier = basename($_FILES['picture']['name']);
             $dossier = $conf['path_enigmes'];
-            move_uploaded_file($_FILES['avatar']['tmp_name'], $dossier.$fichier);
+            move_uploaded_file($_FILES['picture']['tmp_name'], $dossier.$fichier);
             $enigme->setImage($fichier);
         }
         else
         {
             $enigme->setImage("");
         }
-        $em->addEnigme($enigme);
+        
+        $enigmeId = $em->addEnigme($enigme);        
+        if(isset($_POST['indice']))
+        {
+            $im = new Indicemanager(connexionDb());
+            $indice = new Indice(array());
+            $indice->setEnigme($enigmeId);
+            $indice->setTexte($_POST['indice']);
+            
+            if(isset($_POST['indice_picture']))
+            {
+                $fichier_indice = basename($_FILES['indice_picture']['name']);
+                $dossier_indice = $conf['path_indices'];
+                move_uploaded_file($_FILES['indice_picture']['tmp_name'], $dossier_indice.$fichier_indice);
+                $indice->setImage($fichier_indice);
+            }
+            else
+            {
+                $indice->setImage("");
+            }
+            
+            $im->addIndice($indice);
+        }
+        
         
         return true;
     }

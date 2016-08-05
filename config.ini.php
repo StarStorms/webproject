@@ -23,6 +23,7 @@ maxWeight = 2048
 path = ../Avatar
 [ENIGMES_PICS]
 path_enigmes = ../Enigmes_pics
+path_indices = ../Indices_pics
 [ADMINISTRATEUR]
 pseudo = Admin
 mail = erwan@yopmail.com

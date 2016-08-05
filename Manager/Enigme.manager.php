@@ -125,15 +125,37 @@ class Enigmemanager
     
     public function  addEnigme(Enigme $enigme)
     {
-            $query = $this
-            ->db
-            ->prepare("INSERT INTO enigme(auteur, titre, texte, image, date_crea) VALUES (:auteur, :titre, :texte, :image, NOW())");
+        $query = $this
+        ->db
+        ->prepare("INSERT INTO enigme(auteur, titre, texte, image, date_crea) VALUES (:auteur, :titre, :texte, :image, NOW())");
 
-        $query->execute(array(
-            ":auteur" => $enigme->getAuteur(),
-            ":titre" => $enigme->getTitre(),
-            ":texte" => $enigme->getTexte(),
-            ":image" => $enigme->getImage()
-                ));
+    $query->execute(array(
+        ":auteur" => $enigme->getAuteur(),
+        ":titre" => $enigme->getTitre(),
+        ":texte" => $enigme->getTexte(),
+        ":image" => $enigme->getImage()
+            ));
+        
+    
+        /* Retourner l'id de l'enigme cree */
+        $query2 = $this
+                ->db
+                ->prepare("SELECT * FROM enigme WHERE auteur = :auteur AND titre = :titre AND texte = :texte AND image = :image");
+        
+        $query2->execute(array(
+        ":auteur" => $enigme->getAuteur(),
+        ":titre" => $enigme->getTitre(),
+        ":texte" => $enigme->getTexte(),
+        ":image" => $enigme->getImage()
+            ));
+
+         if($tabEnigme2 = $query2->fetch(PDO::FETCH_ASSOC)){
+            $enigmeId = new Enigme($tabEnigme2);
+            $enigmeId->setEtat($this->getEtatEnigme($enigmeId->getId()));
+        } else {
+            $enigmeId = new Enigme(array());
+        }
+        
+        return $enigmeId->getId();
     }
 }
