@@ -36,6 +36,7 @@ startSession();
             <li><a href="index.php?page=enigme"> Enigmes</a></li>
             <li><a href="index.php?page=administration"> Administration</a></li>
             <li><a href="index.php?page=profil"> Profil</a></li>
+            <li><a href="index.php?page=rediger_enigme">Rédigez une énigme</a></li>
             <?php requestQR(); ?>
             <li><a href="index.php?page=deconnexion"> Déconnexion</a></li>
             <?php } else { ?>
@@ -87,11 +88,15 @@ startSession();
             else if ($_GET['page'] == "profil") {
                 //todo
             }
+            else if ($_GET['page'] == "activation") {
+                include "Library/Page/Inscription.lib.php";
+                activateUser();
+            }
+            /*** Mot de passe perdu ***/
             else if ($_GET['page'] == "mdp_perdu") {
                 include "Form/mdp_perdu.form.php";
             }
             else if ($_GET['page'] == "recuperation") {
-                echo("<br />RECUPERATION");
                include "Form/QuestionSecrete.form.php";
             }
             else if ($_GET['page'] == "reponse_secrete") {
@@ -102,10 +107,11 @@ startSession();
             else if ($_GET['page'] == "reinitialiser_mdp") {
                 include "Form/ReinitialiserMdp.form.php";
             }
-            else if ($_GET['page'] == "activation") {
-                include "Library/Page/Inscription.lib.php";
-                activateUser();
+            else if ($_GET['page'] == "rediger_enigme") {
+                include "Form/RedigerEnigme.form.php";
             }
+
+            
         }
         ?>
     </article>

@@ -21,6 +21,8 @@ dbname = 1516he201085
 maxTaille = 200
 maxWeight = 2048
 path = ../Avatar
+[ENIGMES_PICS]
+path_enigmes = ../Enigmes_pics
 [ADMINISTRATEUR]
 pseudo = Admin
 mail = erwan@yopmail.com

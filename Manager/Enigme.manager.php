@@ -122,4 +122,18 @@ class Enigmemanager
 
         return $enigme;
     }
+    
+    public function  addEnigme(Enigme $enigme)
+    {
+            $query = $this
+            ->db
+            ->prepare("INSERT INTO enigme(auteur, titre, texte, image, date_crea) VALUES (:auteur, :titre, :texte, :image, NOW())");
+
+        $query->execute(array(
+            ":auteur" => $enigme->getAuteur(),
+            ":titre" => $enigme->getTitre(),
+            ":texte" => $enigme->getTexte(),
+            ":image" => $enigme->getImage()
+                ));
+    }
 }
