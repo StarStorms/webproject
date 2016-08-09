@@ -53,10 +53,6 @@ class Etatmanager
             $etat = new Etat(array());
         }
 
-
-
         return $etat;
     }
-
-
 }

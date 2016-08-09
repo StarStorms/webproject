@@ -37,6 +37,7 @@ startSession();
             <li><a href="index.php?page=administration"> Administration</a></li>
             <li><a href="index.php?page=profil"> Profil</a></li>
             <li><a href="index.php?page=rediger_enigme">Rédigez une énigme</a></li>
+            <li><a href="index.php?page=enigmes_auteur">Vos énigmes</a></li>
             <?php requestQR(); ?>
             <li><a href="index.php?page=deconnexion"> Déconnexion</a></li>
             <?php } else { ?>
@@ -109,6 +110,9 @@ startSession();
             }
             else if ($_GET['page'] == "rediger_enigme") {
                 include "Form/RedigerEnigme.form.php";
+            }
+            else if ($_GET['page'] == "enigmes_auteur") {
+                include "Form/Enigmes_auteur.form.php";
             }
 
             

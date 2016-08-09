@@ -55,6 +55,28 @@ class Indicemanager
 
         return $indice;
     }
+    
+    public function getIndiceByEnigmeId($id)
+    {
+        $resultats = $this->db->query("SELECT * FROM indice WHERE enigme = :enigme");
+        $resultats->execute(array(
+            ":enigme" => $id
+        ));
+        
+        $tabIndices = $resultats->fetchAll(PDO::FETCH_ASSOC);
+
+        $tab = array();
+
+        foreach($tabIndices as $elem)
+        {
+            $indice = new Indice($elem);
+            $tab[] = $indice;
+
+        }
+
+        return $tab;
+        
+    }
 
     
     public function addIndice(Indice $indice)

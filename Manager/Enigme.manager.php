@@ -60,21 +60,25 @@ class Enigmemanager
         return $enigme;
     }
 
-    public function getEnigmeByAuteur($auteur)
+    public function getEnigmesByAuteur($auteur)
     {
         $query = $this->db->prepare("SELECT * FROM enigme WHERE auteur = :auteur");
         $query->execute(array(
             ":auteur" => $auteur
         ));
+        
+        $tabEnigmes = $query->fetchAll(PDO::FETCH_ASSOC);
+        $tab = array();
 
-        if ($tabEnigme = $query->fetch(PDO::FETCH_ASSOC)) {
-            $enigme = new Enigme($tabEnigme);
-            $enigme->setEtat($this->getEtatEnigme($enigme->getId()));
-        } else {
-            $enigme = new Enigme(array());
+        foreach($tabEnigmes as $elem)
+        {
+            $enigmes = new Enigme($elem);
+            $enigmes->setEtat($this->getEtatEnigme($enigmes->getId()));
+            $tab[] = $enigmes;
+
         }
 
-        return $enigme;
+        return $tab;
     }
 
     public function getEnigmeByDateCrea($date_crea)
@@ -157,5 +161,17 @@ class Enigmemanager
         }
         
         return $enigmeId->getId();
+    }
+    
+    public function addEtat(Etat $etat, $enigmeId)
+    {
+        $query = $this
+        ->db
+        ->prepare("INSERT INTO etat_enigme(date_debut, id_etat, id_enigme) VALUES (NOW(), :id_etat, :id_enigme)");
+
+        $query->execute(array(
+        ":id_etat" => $etat->getId(),
+        ":id_enigme" => $enigmeId
+            ));
     }
 }

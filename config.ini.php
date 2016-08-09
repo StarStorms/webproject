@@ -24,6 +24,7 @@ path = ../Avatar
 [ENIGMES_PICS]
 path_enigmes = ../Enigmes_pics
 path_indices = ../Indices_pics
+default_image_path = default_pic.png
 [ADMINISTRATEUR]
 pseudo = Admin
 mail = erwan@yopmail.com

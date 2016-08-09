@@ -28,6 +28,10 @@ function posterEnigme()
         }
         
         $enigmeId = $em->addEnigme($enigme);        
+        $etat = new Etat(array());
+        $etat->setId(1);
+        $em->addEtat($etat, $enigmeId);
+        
         if(isset($_POST['indice']))
         {
             $im = new Indicemanager(connexionDb());
@@ -50,13 +54,49 @@ function posterEnigme()
             $im->addIndice($indice);
         }
         
-        
         return true;
     }
     else
     {
         return false;
     }
+}
+
+function getAllEnigmesAuteur($auteurId)
+{
+    $conf = parse_ini_file("config.ini.php");
+    $em = new Enigmemanager(connexionDb());
+    $enigmes = $em->getEnigmesByAuteur($auteurId);
+    
+    return $enigmes;
+}
+
+function compterIndiceEnigme($enigmeId) 
+{
+    $conf = parse_ini_file("config.ini.php");
+    $im = new Indicemanager(connexionDb());
+    $indices = $im->getIndiceById($id);
+    
+    return count($indices);
+}
+
+function compterQuestionEnigme($enigmeId)
+{
+    $conf = parse_ini_file("config.ini.php");
+    $qm = new QuestionManager(connexionDb());
+    
+    $tmp = $qm->countQuestionsByEnigme($enigmeId);
+
+    return $tmp['count(*)'];
+}
+
+function getStatusEnigme($enigmeId)
+{
+    $conf = parse_ini_file("config.ini.php");
+    $em = new Enigmemanager(connexionDb());
+    $etat = $em->getEtatEnigme($enigmeId);
+    
+    return $etat->getLibelle();
 }
 
 ?>
