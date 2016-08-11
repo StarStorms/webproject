@@ -114,6 +114,9 @@ startSession();
             else if ($_GET['page'] == "enigmes_auteur") {
                 include "Form/Enigmes_auteur.form.php";
             }
+            else if ($_GET['page'] == "manager_enigme") {
+                include "Form/Manager_enigme.form.php";
+            }
 
             
         }

@@ -41,7 +41,7 @@
             <td><p><?php echo($elem->getTexte()) ?></p></td>
             <td><p>Nombre d'indices : <?php echo(compterIndiceEnigme($elem->getId())) ?></p></td>
             <td><p>Nombre de questions : <?php echo(compterQuestionEnigme($elem->getId())) ?></p></td>
-            <td><a href="index.php?page=rediger_indice&id= <?php echo($elem->getId()) ?>">Rediger un indice</a></td>
+            <td><a href="index.php?page=manager_enigme&id=<?php echo($elem->getId()) ?>">Manager l'énigme</a></td>
         </tr>                    
 <?php
     }

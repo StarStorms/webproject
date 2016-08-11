@@ -127,6 +127,15 @@ class Enigmemanager
         return $enigme;
     }
     
+    public function updateEtatEnigme(Enigme $enigme, Etat $etat)
+    {
+        $query = $this->db->prepare("UPDATE etat_enigme SET id_etat = :id_etat WHERE id_enigme = :id_enigme");
+        $query->execute(array(
+           ":id_etat" => $etat->getId(),
+            "id_enigme" => $enigme->getId()
+        ));
+    }
+    
     public function  addEnigme(Enigme $enigme)
     {
         $query = $this

@@ -58,7 +58,7 @@ class Indicemanager
     
     public function getIndiceByEnigmeId($id)
     {
-        $resultats = $this->db->query("SELECT * FROM indice WHERE enigme = :enigme");
+        $resultats = $this->db->prepare("SELECT * FROM indice WHERE enigme = :enigme");
         $resultats->execute(array(
             ":enigme" => $id
         ));
