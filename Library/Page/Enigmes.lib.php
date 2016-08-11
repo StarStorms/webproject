@@ -1,5 +1,38 @@
 <?php
 
+function posterIndice(Enigme $enigme)
+{
+    $conf = parse_ini_file("config.ini.php");
+
+    if(isset($_POST['indice']))
+    {
+        $im = new Indicemanager(connexionDb());
+        $indice = new Indice(array());
+        $enigmeId = $enigme->getId();
+        $indice->setEnigme($enigmeId);
+        $indice->setTexte($_POST['indice']);
+
+        if(isset($_POST['indice_picture']))
+        {
+            $fichier_indice = basename($_FILES['indice_picture']['name']);
+            $dossier_indice = $conf['path_indices'];
+            move_uploaded_file($_FILES['indice_picture']['tmp_name'], $dossier_indice.$fichier_indice);
+            $indice->setImage($fichier_indice);
+        }
+        else
+        {
+            $indice->setImage("");
+        }
+
+        $im->addIndice($indice);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 function posterEnigme()
 {
     if(isset($_POST['titre'])
@@ -27,33 +60,13 @@ function posterEnigme()
             $enigme->setImage("");
         }
         
-        $enigmeId = $em->addEnigme($enigme);        
+        $enigmeId = $em->addEnigme($enigme);
+        $enigme = $em->getEnigmeById($enigmeId);
         $etat = new Etat(array());
         $etat->setId(1);
         $em->addEtat($etat, $enigmeId);
         
-        if(isset($_POST['indice']))
-        {
-            $im = new Indicemanager(connexionDb());
-            $indice = new Indice(array());
-            $indice->setEnigme($enigmeId);
-            $indice->setTexte($_POST['indice']);
-            
-            if(isset($_POST['indice_picture']))
-            {
-                $fichier_indice = basename($_FILES['indice_picture']['name']);
-                $dossier_indice = $conf['path_indices'];
-                move_uploaded_file($_FILES['indice_picture']['tmp_name'], $dossier_indice.$fichier_indice);
-                $indice->setImage($fichier_indice);
-            }
-            else
-            {
-                $indice->setImage("");
-            }
-            
-            $im->addIndice($indice);
-        }
-        
+        posterIndice($enigme);
         return true;
     }
     else
@@ -187,7 +200,6 @@ function listerEtats(Etat $etatInitial)
     return $tab;
 }
 
-
 function changerEtat(Enigme $enigme, $etatId)
 {
     $conf = parse_ini_file("config.ini.php");
@@ -207,5 +219,4 @@ function changerEtat(Enigme $enigme, $etatId)
         return FALSE;
     }            
 }
-
 ?>

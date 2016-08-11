@@ -60,6 +60,18 @@
                         afficherAlertErreur("Une erreur est survenue");
                     }
                 }
+                else if(isset($_GET['action']) && $_GET['action'] == "poster_indice")
+                {
+                    if(posterIndice($enigme) == true)
+                    {
+                        afficherAlertSucces("L'indice a bien été posté");
+                    }
+                    else
+                    {
+                        afficherAlertErreur("Une erreur est survenue");
+                    }
+                }
+
                     
 
 ?>
@@ -90,6 +102,20 @@
                             </td>
                         </tr>
                         <tr>
+                        <form method="post" action="index.php?page=manager_enigme&action=poster_indice&id=<?php echo($enigme->getId()); ?>">                            
+                        <div class="form-group">
+                           <label for="enigme">Poster un nouvel indice</label>
+                           <input type="textarea" id="indice" name="indice" required class="form-control" required />
+                       </div>
+                        <div class="form-group">
+                           <label for="enigme">Image de l'indice : (falcutatif) </label>
+                           <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+                           <input type="file" name="indice_picture" />
+                       </div>
+                        <button type="submit" class="btn btn-default">Poster l'indice</button>
+                        </form>
+                    </tr>
+                    <tr>
                         <table>
                             <tr><td>Indices :</td></tr>
 <?php
