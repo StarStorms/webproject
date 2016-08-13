@@ -1,5 +1,30 @@
 <?php
 
+function test()
+{
+    echo("<br />test ok");
+}
+
+function getAllEnigmesEnCours()
+{
+    $em = new Enigmemanager(connexionDb());
+    $etm = new Etatmanager(connexionDb());
+    
+    $etat = $etm->getEtatById(2);
+    $enigmes = $em->getEnigmesByEtat($etat);
+    
+    return $enigmes;
+}
+
+function getNomAuteurFromId($idAuteur)
+{
+    $um = new UtilisateurManager(connexionDb());
+    $user = $um->getUserById($idAuteur);
+    
+    return $user->getNom();
+}
+
+
 function posterIndice(Enigme $enigme)
 {
     $conf = parse_ini_file("config.ini.php");

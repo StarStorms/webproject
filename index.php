@@ -67,7 +67,7 @@ startSession();
                 //header("refresh:3;url=index.php" );
             }
             else if ($_GET['page'] == "enigme") {
-                //todo
+                include "Form/ChercherEnigmes.form.php";
             }
             else if ($_GET['page'] == "administration") {
                 //todo
@@ -91,7 +91,7 @@ startSession();
             }
             else if ($_GET['page'] == "activation") {
                 include "Library/Page/Inscription.lib.php";
-                activateUser();
+                activateUser($_GET['code']);
             }
             /*** Mot de passe perdu ***/
             else if ($_GET['page'] == "mdp_perdu") {

@@ -62,7 +62,7 @@ function afficherFormulaireReinitaliserMdp($code)
                 $user = getUserFromRecativationCode($_POST['code']);
                 deleteReactivation($_POST['code']);
                 setRecupGrade($_SESSION['mail_recup']);
-                activateUser($user);
+                activateUser($_POST['code']);
                 afficherAlertSucces("Votre mot de passe a été mis à jour !");           
                 session_destroy();
                 header("refresh:3;url=index.php" );

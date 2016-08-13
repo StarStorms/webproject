@@ -183,4 +183,24 @@ class Enigmemanager
         ":id_enigme" => $enigmeId
             ));
     }
+    
+    public function getEnigmesByEtat(Etat $etat)
+    {
+        $resultat = $this->db->prepare("SELECT id_enigme FROM etat_enigme WHERE id_etat = :id_etat");
+        $resultat->execute(array(
+           ":id_etat" => $etat->getId()
+        ));
+        
+        $ids = $resultat->fetch(PDO::FETCH_ASSOC);        
+        $tab = array();
+        foreach ($ids as $elem)
+        {
+            $enigme = getEnigmeById($elem['id_enigme']);
+            if($enigme->getId() == $elem['id_enigme'])
+            {
+                array_push($tab, $enigme);
+            }
+        }
+        return $tab;
+    }
 }
