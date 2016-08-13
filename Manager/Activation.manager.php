@@ -106,7 +106,6 @@ class ActivationManager
 
     public function deleteActivation($id, $libelle)
     {
-
         $query = $this
             ->db
             ->prepare("DELETE FROM activation WHERE id_utilisateur = :id AND libelle = :libelle");

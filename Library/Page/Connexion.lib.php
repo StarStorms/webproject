@@ -6,52 +6,40 @@
  * Time: 14:18
  */
 
-function connectUser() {
-    
-    $conf = parse_ini_file("config.ini.php");
+/**
+ * Verifie que le couple pseudo-mdp est correct et initie la session utilisateur?
+ * @param String $pseudo Pseudo de l'utilisateur deja dans la BDD
+ * @param String $mdp Mot de passe de l'utilisateur
+ */
+function connectUser($pseudo, $mdp) 
+{
     $um = new UtilisateurManager(connexionDb());
     
-    if(isset($_POST['name']) && isset($_POST['mdp'])) {
-        $pseudo = strtolower($_POST['name']);
-        $mdp = $_POST['mdp'];
+    if(verifString($pseudo) && verifString($mdp)) 
+    {
+        $pseudo = strtolower($pseudo);
                 
-        $result=$um->verifyMdp($pseudo, $mdp);
-        if($result == true)
+        $result = $um->verifyMdp($pseudo, $mdp);
+        if($result == TRUE)
         {
-            $user=$um->getUserByUserName($pseudo);
+            $user = $um->getUserByUserName($pseudo);
             $grade = $um->getUserGrade($user);
-            if($grade->getId()==1 || 
-               $grade->getId()==2 || 
+            if($grade->getId() == 1 || 
+               $grade->getId() == 2 || 
                $grade->getId()== 5)
             {
-                $_SESSION['Utilisateur'] = $user->getNom();
-                $_SESSION['id'] = $user->getId();
-                $_SESSION['connected'] = true;
-?>
-                <div class="alert alert-success">
-                    <strong>Succes</strong> Vous êtes connecté(e) !
-                </div>
-<?php
-            
+                setSessionUser($user);
+                afficherAlertSucces("Vous êtes connecté(e) !");     
             }
             else
             {
-?>
-                <div class="alert alert-danger">
-                    <strong>Erreur!</strong> Votre compte en actuellement dans l'état : 
-                    <strong><?php echo($grade->getLibelle())?></strong>
-                </div>
-<?php
+                afficherAlertErreur("Votre compte en actuellement dans l'état : <strong>".$grade->getLibelle()."</strong>");
             }
         } 
         else 
         {
             $_SESSION['connected'] = false;
-?>
-              <div class="alert alert-danger">
-                  <strong>Erreur!</strong> Couple identifiant - mot de passe incorrect !
-              </div>
-<?php
+            afficherAlertErreur("Couple identifiant - mot de passe incorrect !");
         }
     }
 }

@@ -125,14 +125,8 @@ function verifEnigmeAuteur($enigmeId, $auteurId)
     $conf = parse_ini_file("config.ini.php");
     $em = new Enigmemanager(connexionDb());
     $enigme = $em->getEnigmeById($enigmeId);
-    if($enigme->getAuteur() == $auteurId)
-    {
-        return true;
-    }
-    else 
-    {
-        return false;
-    }
+    
+    return $enigme->getAuteur() == $auteurId;
 }
 
 function getEnigmeById($enigmeId)

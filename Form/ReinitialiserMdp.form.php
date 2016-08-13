@@ -7,79 +7,77 @@
  */
 ?>
 
+<?php
+/**
+ * Afficher le formulaire demandant le nouveau mot de passe
+ * @param String $code Le code du ticket de reactivation
+ */
+function afficherFormulaireReinitaliserMdp($code)
+{
+    if(verifString($_POST['code']))
+    {
+?>
+        <form action="index.php?page=reinitialiser_mdp" method="post" class="form-horizontal">
+            <div class="form-group">
+                <label for="mdp">Réinitalisez votre mot de passe (4 caractères min): </label>
+                <input type="password" id="mdp" name="mdp" placeholder="Votre mot de passe" required class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="mdpConfirm">Mot de passe de confirmation: </label>
+                <input type="password" id="mdpConfirm" name="mdpConfirm" placeholder="Réencodez votre mot de passe" required class="form-control" />
+            </div>
+            <input type="hidden" name="code" id="hiddenField" value="<?php echo($code); ?>" />
+            <button type="submit" class="btn btn-default">Envoyer</button>
+        </form>
+<?php
+    }
+    else
+    {
+        afficherAlertErreur("Une erreur est survenue");
+    }
+}
+?>
+
 <div class="container">
     <div class="jumbotron">
         <h1>Mot de passe perdu</h1>
-        <p>Veuillez renseigner votre adresse mail et répondez à votre question secèrete </p>
+        <p>Veuillez rentrer un nouveau mot de passe </p>
     </div>
 </div>
+
 <div class="container">
-    <?php
-    if(isset($_SESSION['rep_secrete']) && $_SESSION['rep_secrete'] == true)
+<?php
+    include "Library/Page/Mdp_perdu.lib.php";
+    /* Si es 2 mdp ont ete donnes, verifier qu'ils correspondent */
+    if(isset($_SESSION['rep_secrete']) && $_SESSION['rep_secrete'] == TRUE)
     {
-        if(isset($_POST['mpd']) && isset($_POST['mdpConfirm']))
+        if(verifString($_POST['mdp'])
+            && verifString($_POST['mdpConfirm']))
         {
-            $ok = verifMdpReinitialisation($_SESSION['user_id']);
-            if($ok == true)
+            if(verifMdpReinitialisation($_SESSION['user_id'], $_POST['mdp'], $_POST['mdpConfirm']))
             {
-                include "Library/Page/Inscription.lib.php";
+                afficherAlertSucces("Votre mot de passe a été réinitialisé");
+                
+                //include "Library/Page/Inscription.lib.php";
                 $user = getUserFromRecativationCode($_POST['code']);
                 deleteReactivation($_POST['code']);
                 setRecupGrade($_SESSION['mail_recup']);
                 activateUser($user);
-?>
-                <div class="alert alert-success">
-                    <strong>Bravo!</strong> Votre mot de passe a été mis à jour !
-                </div>
-<?php            
+                afficherAlertSucces("Votre mot de passe a été mis à jour !");           
                 session_destroy();
                 header("refresh:3;url=index.php" );
             }
             else
             {
-?>
-                <form action="index.php?page=reinitialiser_mdp" method="post" class="form-horizontal">
-                    <div class="form-group">
-                        <label for="mdp">Réinitalisez votre mot de passe (4 caractères min): </label>
-                        <input type="password" id="mdp" name="mdp" placeholder="Votre mot de passe" required class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label for="mdpConfirm">Mot de passe de confirmation: </label>
-                        <input type="password" id="mdpConfirm" name="mdpConfirm" placeholder="Réencodez votre mot de passe" required class="form-control" />
-                    </div>
-                    <div class="alert alert-danger">
-                        <strong>Erreur!</strong> Vos mots de passes doivent correspondre !
-                    </div>
-                    <input type="hidden" name="code" id="hiddenField" value="<?php echo($_POST['code']); ?>" />
-                    <button type="submit" class="btn btn-default">Envoyer</button>
-                </form>
-                <div class="alert alert-danger">
-                    <strong>Erreur!</strong> Vos mots de passe doivent correspondre.
-                </div>
-<?php
+                /* Si verifMdpReinitianlisation renvoie FALSE alors les mpd ne correspondent pas */
+                /* Dans ce cas : afficher un message d'erreur et re-afficher le formulaire */
+                afficherAlertErreur("Vos mots de passe doivent correspondre."); 
+                afficherFormulaireReinitaliserMdp($_POST['code']);
             }
         }
         else
         {
-?>
-
-            <form action="index.php?page=reinitialiser_mdp" method="post" class="form-horizontal">
-                <div class="form-group">
-                    <label for="mdp">Réinitalisez votre mot de passe (4 caractères min): </label>
-                    <input type="password" id="mdp" name="mdp" placeholder="Votre mot de passe" required class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label for="mdpConfirm">Mot de passe de confirmation: </label>
-                    <input type="password" id="mdpConfirm" name="mdpConfirm" placeholder="Réencodez votre mot de passe" required class="form-control" />
-                </div>
-                <div class="alert alert-danger">
-                    <strong>Erreur!</strong> Vos mots de passes doivent correspondre !
-                </div>
-                <input type="hidden" name="code" id="hiddenField" value="<?php echo($_POST['code']); ?>" />
-                <button type="submit" class="btn btn-default">Envoyer</button>
-            </form>
-
-<?php
+            afficherFormulaireReinitaliserMdp($_POST['code']);
         }
     }
 ?>

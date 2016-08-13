@@ -37,13 +37,9 @@
                 $_SESSION['connected'] = false;
                 $_SESSION['mail_recup'] = $mail;
                 setMDPPerduGrade($mail);
-                sendMailRecuperation($mail);                
-?>
-                <div class="alert alert-success">
-                    Un mail contenant un lien vous a été envoyé. <br />
-                    Cliquez sur le lien pour réinitialiser votre mot de passe.
-                </div>
-<?php
+                sendMailRecuperation($mail);
+                afficherAlertSucces("Un mail contenant un lien vous a été envoyé. <br />Cliquez sur le lien pour réinitialiser votre mot de passe.");
+
                 //header("refresh:3;url=index.php" );
             }
             else

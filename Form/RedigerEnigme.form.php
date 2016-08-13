@@ -1,5 +1,14 @@
 <?php
-if(isset($_SESSION['connected']) && $_SESSION['connected'] == true)
+/**
+ * Created by PhpStorm.
+ * User: Erwan
+ * Date: 16/07/2016
+ * Time: 13:30
+ */
+?>
+
+<?php
+if(isConnect())
 {
 ?>
     <div class="container">
@@ -8,10 +17,10 @@ if(isset($_SESSION['connected']) && $_SESSION['connected'] == true)
             <p>Ecrivez une énigme !</p>
         </div>
     </div>
-    <?php
+<?php
     if(!isset($_POST['titre']))
     {
-    ?>    
+?>    
         <div class="container">
             <form action="index.php?page=rediger_enigme" method="post" class="form-horizontal">
                 <div class="form-group">
@@ -45,7 +54,7 @@ if(isset($_SESSION['connected']) && $_SESSION['connected'] == true)
     else
     {
         include "Library/Page/Enigmes.lib.php";
-        if(posterEnigme() == false)
+        if(!posterEnigme())
         {
 ?>
         <div class="container">
@@ -75,20 +84,13 @@ if(isset($_SESSION['connected']) && $_SESSION['connected'] == true)
                     <button type="submit" class="btn btn-default">Envoyer</button>
                 </form>
             </div>
-            <div class="alert alert-danger">
-                <strong>Erreur!</strong> Une erreur est surevenue !
-            </div>
 <?php
+            afficherAlertErreur("une erreur est survenue.");
         }
         else
         {
-?>
-            <div class="alert alert-success">
-                <strong>Succes</strong> Votre énigme a été postée
-            </div>
-<?php
+            afficherAlertSucces("Votre énigme a été postée.");
         }
-
     }
 }
 ?>

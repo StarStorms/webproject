@@ -63,8 +63,8 @@ startSession();
             else if ($_GET['page'] == "connexion_req")
             {
                 include "Library/Page/Connexion.lib.php";
-                connectUser();
-                header("refresh:3;url=index.php" );
+                connectUser($_POST['name'], $_POST['mdp']);
+                //header("refresh:3;url=index.php" );
             }
             else if ($_GET['page'] == "enigme") {
                 //todo

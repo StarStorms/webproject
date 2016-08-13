@@ -80,7 +80,6 @@ function verifyInscription()
     $um = new UtilisateurManager(connexionDb());
     $false = false;
 
-
         if (isset($_POST['name'])) {
             $pseudo = strtolower($_POST['name']);
             $mail = $_POST['email'];
@@ -152,7 +151,6 @@ function verifyInscription()
                 $um->setUserGrade($user, 6);
                 $um->setUserRole($user, 1);
                 
-                echo("enter function");
                 setActivation($user);
 /*
             $adresseAdmin = $conf['mail'];

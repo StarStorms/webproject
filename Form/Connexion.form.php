@@ -17,11 +17,11 @@
 <form action="index.php?page=connexion_req" method="post" class="form-horizontal">
     <div class="form-group">
         <label for="name">Pseudo : </label>
-        <input type="text" id="name" name="name" placeholder="Votre Pseudo" class="form-control" required <?php if(isset($_POST['name']))echo'value="'.$_POST['name'].'"';?>>
+        <input type="text" id="name" name="name" placeholder="Votre Pseudo" class="form-control" required <?php if(isset($_POST['name']))echo'value="'.$_POST['name'].'"';?> />
     </div>
     <div class="form-group">
         <label for="mdp">Mot de passe : </label>
-        <input type="password" id="mdp" name="mdp" placeholder="Votre mot de passe" required class="form-control">
+        <input type="password" id="mdp" name="mdp" placeholder="Votre mot de passe" required class="form-control" />
     </div>
     <div class="mdp_perdu">
         <li><a href="index.php?page=mdp_perdu">J'ai perdu mon mot de passe</a></li>

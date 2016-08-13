@@ -7,71 +7,72 @@
  */
 
 
+/**
+ * Verifie si le pseudo d'un utilisateur existe dans la BDD
+ * @param String $pseudo Le nom de l'utilisateur
+ * @return boolean TRUE si l'uilisateur existe, FALSE sinon
+ */
 function verifyPseudoExist($pseudo) 
-{    
-    $conf = parse_ini_file("config.ini.php");
+{
+    if(!verifString($pseudo))
+    {
+        return FALSE;
+    }
+    
     $um = new UtilisateurManager(connexionDb());
     $user = $um->getUserByUserName($pseudo);
     
-    if(!isset($user) || $user->getId() == NULL)
-    {
-        return false;
-    }
-    else 
-    {
-       return true; 
-    }
-
+    return ($user != NULL
+            && strcmp($user->getNom(), $pseudo) == 0);
 }
 
+/**
+ * Verifie si l'adresse mail d'un utilisateur existe dans la BDD
+ * @param String $mail L'adresse mail de l'utilisateur
+ * @return boolean TRUE si l'uilisateur existe, FALSE sinon
+ */
 function verifyEmailExist($mail) 
-{    
-    echo("<br />Verify EMAIL : ".$mail);
-    $conf = parse_ini_file("config.ini.php");
+{
+    if(!verifString($mail))
+    {
+        return FALSE;
+    }
+    
     $um = new UtilisateurManager(connexionDb());
     $user = $um->getUserByEmail($mail);
     
-    if(!isset($user) || $user->getId() == NULL)
-    {
-        return false;
-    }
-    else 
-    {
-       return true;
-    }
-
+    return ($user != NULL
+            && strcmp($user->getEmail(), $mail) == 0);
 }
 
-function VerifierReponseSecrete($mail) {    
-    if(!isset($_POST['reponse']))
+/**
+ * Verifie si la reponse secrete est la meme que celle dans la BDD
+ * @param String $mail L'adresse mail de l'utilisateur repondant a la question secrete
+ * @param String $reponse La reponse a la question secrete, en clair (sans hash)
+ * @return boolean TRUE si la reponse correspond a celle renseignee dans la BBD pour cet utilisateur
+ */
+function verifierReponseSecrete($mail, $reponse)
+{
+    if(!verifString($mail)
+            && !verifString($reponse))
     {
-        return false;
+        return FALSE;
     }
-        echo("<br />mail : ".$mail);
-    echo("<br />REPONSE : ".$_POST['reponse']);
-    
-    $conf = parse_ini_file("config.ini.php");
+
     $um = new UtilisateurManager(connexionDb());
     $user = $um->getUserByEmail($mail);
-
     $bonneRep = $user->getReponseSecrete();
     
-    echo("<br />Bonne rep : ".$bonneRep);
+    $rep = hash("sha256", $reponse);
 
-    
-    $rep = hash("sha256", $_POST['reponse']);
-        echo("<br />rep : ".$rep);
-
-    if($rep == $bonneRep)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return (strcmp($rep, $bonneRep) == 0);
 }
 
+/**
+ * Genere un code de ractivation, cree un ticket de reactivation dans la BDD puis envoie
+ * un mail a l'utilisateur avec le code du ticket
+ * @param String $mail Adresse mail de l'utilisateur
+ */
 function sendMailRecuperation($mail)
 {
     $conf = parse_ini_file("config.ini.php");
@@ -106,94 +107,103 @@ function sendMailRecuperation($mail)
     //mail($to, $sujet, $message, $entete);
 }
 
-function verifMdpReinitialisation($userId) 
-{
-    $conf = parse_ini_file("config.ini.php");
-    $um = new UtilisateurManager(connexionDb());
-    $user = $um->getUserById($userId);
-       
-    if(isset($_POST['mdp']) && isset($_POST['mdpConfirm'])
-       && strlen($_POST['mdp']) > 4 && strcmp($_POST['mdp'], $_POST['mdpConfirm']) == 0)
+/**
+ * Verifie si les 2 mdp fournis sont identiques et update le mdp de l'utilisateur dans la BDD
+ * @param String $userId L'ID de l'utilisateur dans la BDD
+ * @param String $mdp Le nouveau mdp de l'utilisateur
+ * @param String $mdpConfirm Doit etre strictement identique a $mdp
+ * @return boolean TRUE si les 2 mdp sont identiques et que le mdp a ete change, FALSE sinon
+ */
+function verifMdpReinitialisation($userId, $mdp, $mdpConfirm) 
+{   
+    if(strlen($mdp) >= 4
+            && strcmp($mdp, $mdpConfirm) == 0)
     {
-        $user->setMdp($_POST['mdp']);
+        $um = new UtilisateurManager(connexionDb());
+        $user = $um->getUserById($userId);
+        $user->setMdp($mdp);
+        
         $um->updateUserMdp($user);
         /*TODO modifier pour revenir a l'ancien grade et nn juste le 5 */
         $um->updateUserGrade($user->getId(), 5);
-?>        
-        <div class="alert alert-success">
-            <strong>Succès</strong> Votre mot de passe a été réinitialisé !
-        </div>
-<?php
-        return true;
+        return TRUE;
     }
-    else
-    {
-        return false;
-    }
+    return FALSE;
 }
 
+/**
+ * Met un utilisateur dans l'etat "Recuperation"
+ * @param String $mail L'adresse mail de l'utilisateur
+ */
 function setRecupGrade($mail)
 {
-    $conf = parse_ini_file("config.ini.php");
     $um = new UtilisateurManager(connexionDb());
     $user = $um->getUserByEmail($mail);
     $userId = $user->getId();
     $um->updateUserGrade($userId, 3);
 }
 
+/**
+ * Met un utilisateur dans l'etat "mot de passe perdu"
+ * @param String $mail L'adresse mail de l'utilisateur
+ */
 function setMDPPerduGrade($mail)
 {
-    $conf = parse_ini_file("config.ini.php");
     $um = new UtilisateurManager(connexionDb());
     $user = $um->getUserByEmail($mail);
     $userId = $user->getId();
     $um->updateUserGrade($userId, 4);
 }
 
+/**
+ * Supprime le ticket de reactivation de la BDD
+ * @param String $code Le code du ticket de ractivation
+ */
 function deleteReactivation($code) 
 {
-    $conf = parse_ini_file("config.ini.php");
     $am = new ActivationManager(connexionDb());
     $act = $am->getActivationByCode($code);
-    $userId = $act->getIdUtilisateur();
     $am->deleteActivation($act->getId(), $act->getLibelle());
 }
 
+/**
+ * Recupere l'utilisateur correspondant au ticket de reactivation
+ * @param String $code Le code du ticket de reactivation
+ * @return Utilisateur L'utilisateur trouve ou NULL si non trouve
+ */
 function getUserFromRecativationCode($code)
 {
-    echo("<br />getUserFromRecativationCode : ".$code);
-    if($code != NULL)
+    if(verifString($code))
     {
-        $conf = parse_ini_file("config.ini.php");
         $am = new ActivationManager(connexionDb());
         $um = new UtilisateurManager(connexionDb());
         $act = $am->getActivationByCode($code);
-        echo("<br />act libel : ".$act->getLibelle());
         if(isset($act) && strcmp($act->getLibelle(), "Mot de passe perdu") == 0) 
         {
             $userId = $act->getIdUtilisateur();
-            echo("<br /> user id from act: ".$userId);
             $user = $um->getUserById($userId);
             
-            if($user->getNom() != NULL && strlen($user->getNom()) > 0)
+            if(verifString($user->getNom()))
             {
                 return $user;
             }
         }        
     }
-    
     return NULL;
 }
 
+/**
+ * Recupere la question secrete d'un utilisateur a partir d'un ticket de ractivation
+ * @param String $code Le code du ticket de reactivation
+ * @return String La question si elle a ete trouve et NULL sinon
+ */
 function getQuestionSecreteFromReactivationCode($code) 
 {
-    echo("<br />getQuestionSecreteFromReactivationCode : ".$code);
     $user = getUserFromRecativationCode($code);
-    echo("<br /> user id : ".$user->getId());
-    if($user != NULL)
+    if($user != NULL && verifString($user->getNom()))
     {
         $question = $user->getQuestionSecrete();
-        if($question != NULL && strlen($question) > 0)
+        if(verifString($question))
         {
             return $question;
         }

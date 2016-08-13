@@ -7,7 +7,7 @@
  */
 
 /**
- * Fonction faisant débuter la session.
+ * Fonction faisant dï¿½buter la session.
  */
 function startSession()
 {
@@ -17,15 +17,18 @@ function startSession()
 
 /**
  * Fonction permettant de savoir si un utilisateur est connecter
- * @return bool : true si il est connecté, false sinon.
+ * @return bool : true si il est connectï¿½, false sinon.
  */
 function isConnect()
 {
-    return (isset($_SESSION['Utilisateur']));
+    return (isset($_SESSION['connected']) 
+            && $_SESSION['connected'] == TRUE 
+            && isset($_SESSION['Utilisateur'])
+            && strlen($_SESSION['Utilisateur']) > 0);
 }
 
 /**
- * Fonction permettant de récupérer la variable session lié à un utilisateur
+ * Fonction permettant de rï¿½cupï¿½rer la variable session liï¿½ ï¿½ un utilisateur
  * @return string
  */
 function getSessionUser()
@@ -34,10 +37,12 @@ function getSessionUser()
 }
 
 /**
- * Fonction permettant de générer la session de l'utilisateur.
- * @param User $user : l'utilisateur concerné.
+ * Fonction permettant de gï¿½nï¿½rer la session de l'utilisateur.
+ * @param User $user : l'utilisateur concernï¿½.
  */
 function setSessionUser(Utilisateur $user)
 {
-    $_SESSION['Utilisateur'] = $user;
+    $_SESSION['Utilisateur'] = $user->getNom();
+    $_SESSION['id'] = $user->getId();
+    $_SESSION['connected'] = TRUE;
 }

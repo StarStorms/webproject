@@ -1,38 +1,38 @@
 <?php
-echo("<br />sessions : ");
-print_r($_SESSION);
+/**
+ * Created by PhpStorm.
+ * User: Erwan
+ * Date: 16/07/2016
+ * Time: 13:30
+ */
+?>
 
-$bonne = VerifierReponseSecrete($_SESSION['mail_recup']);
-if($bonne == true)
+<?php
+if(verifierReponseSecrete($_SESSION['mail_recup'], $_POST['reponse']))
 {
     $user = getUserFromRecativationCode($_POST['code']);
     $_SESSION['user_id'] = $user->getId();
     $_SESSION['rep_secrete'] = true;
+    afficherAlertSucces("Votre réponse est correcte.");
 
 ?>
 
-    <form action="index.php?page=reinitialiser_mdp">
+    <form method="post" action="index.php?page=reinitialiser_mdp">
       <input type="hidden" name="code" id="hiddenField" value="<?php echo($_POST['code']); ?>" />
       <input type="submit" value="Réinitialisez votre mot de passe" />
     </form>  
-    <div class="alert alert-success">
-        <strong>Succès</strong> Votre réponse est correcte.
-    </div>
-
 <?php    
 }
 else
 {
     $_SESSION['rep_secrete'] = false;
+    afficherAlertErreur("Votre reponse est incorrecte");
 ?>
 
-    <form action="index.php?page=recuperation&code=<?php echo($_POST['code']); ?>">
+    <form method="post" action="index.php?page=recuperation&code=<?php echo($_POST['code']); ?>">
       <input type="hidden" name="code" id="hiddenField" value="<?php echo($_POST['code']); ?>" />
       <input type="submit" value="Réessayer" />
     </form>  
-    <div class="alert alert-danger">
-        <strong>Erreur!</strong> Votre réponse est incorrecte.
-    </div>
 
 <?php
 }
