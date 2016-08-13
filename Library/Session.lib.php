@@ -46,3 +46,8 @@ function setSessionUser(Utilisateur $user)
     $_SESSION['id'] = $user->getId();
     $_SESSION['connected'] = TRUE;
 }
+
+function getIdSession()
+{
+    return $_SESSION['id'];
+}

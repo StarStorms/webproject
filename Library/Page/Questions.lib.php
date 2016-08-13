@@ -31,7 +31,6 @@ function getAuteurQuestion($questionId)
 
 function getReponseQuestion($questionId)
 {
-    $conf = parse_ini_file("config.ini.php");
     $rm = new ReponseManager(connexionDb());
     $reponse = $rm->getReponseById($questionId);
     
@@ -43,6 +42,18 @@ function getReponseQuestion($questionId)
     {
         return NULL;
     }
+}
+
+function getReponseNiveau(Reponse $reponse)
+{
+    $rm = new ReponseManager(connexionDb());
+    return $rm->getReponseNiveau($reponse);
+}
+
+function addQuestion(Question $question)
+{
+    $qm = new QuestionManager(connexionDb());
+    $qm->addQuestion($question);
 }
 
 ?>

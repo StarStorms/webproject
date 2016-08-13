@@ -101,7 +101,38 @@ class UtilisateurManager
             ":idRole" => $idRole
         ));
     }
+    
+    public function updateUserConnect(Utilisateur $user)
+    {
+        $query = $this
+            ->db
+            ->prepare("UPDATE utilisateur SET date_connexion = NOW() WHERE id = :id");
 
+        $query
+            ->execute(array(
+                ":id" => $user->getId()
+            ));
+
+    }
+    
+        public function updateUserProfil(Utilisateur $user)
+    {
+
+        $query = $this
+            ->db
+            ->prepare("UPDATE utilisateur SET nom = :username, email = :email, question_secrete = :question, reponse_secrete = :reponse");
+
+        $query
+            ->execute(array(
+                ":username" => $user->getNom(),
+                ":mail" => $user->getEmail(),
+                ":question" => $user->getQuestionSecrete(),
+                ":reponse" => $user->getReponseSecrete()
+            ));
+        //$this->updateUserDroit($user->getId(), $user->getDroit()->getId());
+
+    }
+    
     public function getUserRole(Utilisateur $user)
     {
         $rm = new Rolemanager(connexionDb());
@@ -196,6 +227,7 @@ class UtilisateurManager
         ));
     }
 
+    /*
     public function updateUserProfil(Utilisateur $user)
     {
 
@@ -214,7 +246,9 @@ class UtilisateurManager
 
 
     }
+     * */
 
+/*
     public function updateUserConnect(Utilisateur $user)
     {
         $query = $this
@@ -227,7 +261,8 @@ class UtilisateurManager
             ));
 
     }
-
+*/
+    
     public function addQuestionReponseSecrete($question, $reponse, Utilisateur $user)
     {
         $query = $this

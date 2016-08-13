@@ -123,7 +123,7 @@
                             foreach ($indices as $elem)
                             {
                                 $imagePath="";
-                                if(strlen($elem->getImage()) > 0)
+                                if(verifString($elem->getImage()))
                                 {
                                     $imagePath = $elem->getImage();
                                 }
@@ -160,10 +160,11 @@
                                     <td>Le : <?php echo($elem->getDateCrea()); ?></td>
 <?php
                                     $reponse = getReponseQuestion($elem->getId());
+                                    $niveau = getReponseNiveau($reponse);
                                     if($reponse != NULL && strlen($reponse) > 0)
                                     {
 ?>
-                                    <td><strong> Réponse : </strong><p><?php echo($reponse); ?></p></td>
+                                    <td><strong> Réponse : <?php echo($niveau->getLibelle()); ?></strong><p><?php echo($reponse->getTexte()); ?></p></td>
 <?php
                                     }
                                     else
