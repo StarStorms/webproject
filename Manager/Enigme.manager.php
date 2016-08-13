@@ -191,12 +191,12 @@ class Enigmemanager
            ":id_etat" => $etat->getId()
         ));
         
-        $ids = $resultat->fetch(PDO::FETCH_ASSOC);        
+        $ids = $resultat->fetch(PDO::FETCH_ASSOC);  
         $tab = array();
         foreach ($ids as $elem)
         {
-            $enigme = getEnigmeById($elem['id_enigme']);
-            if($enigme->getId() == $elem['id_enigme'])
+            $enigme = getEnigmeById($elem);
+            if($enigme->getId() == $elem)
             {
                 array_push($tab, $enigme);
             }
