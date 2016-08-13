@@ -1,5 +1,19 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Erwan
+ * Date: 16/07/2016
+ * Time: 13:30
+ */
+?>
 
+<?php
+
+/**
+ * Retourne toutes les questions liees a une enigme
+ * @param String $enigmeId L'id de la question
+ * @return array
+ */
 function getQuestionsEnigme($enigmeId)
 {
     $qm = new QuestionManager(connexionDb());
@@ -7,6 +21,10 @@ function getQuestionsEnigme($enigmeId)
     return $qm->getQuestionsByEnigme($enigmeId);
 }
 
+/**
+ * @param String $questionId
+ * @return Question
+ */
 function getQuestionById($questionId)
 {
     $qm = new QuestionManager(connexionDb());
@@ -14,6 +32,11 @@ function getQuestionById($questionId)
     return $qm->getQuestionById($questionId);
 }
 
+/**
+ * Retourne l'utilisateur qui a poste la question
+ * @param String $questionId
+ * @return Utilisateur
+ */
 function getAuteurQuestion($questionId)
 {
     $conf = parse_ini_file("config.ini.php");
@@ -26,6 +49,11 @@ function getAuteurQuestion($questionId)
     return $auteur;
 }
 
+/**
+ * Retourne le reponse (unique) liee a une qustion
+ * @param String $questionId
+ * @return Reponse
+ */
 function getReponseQuestion($questionId)
 {
     $rm = new ReponseManager(connexionDb());
@@ -40,18 +68,31 @@ function getReponseQuestion($questionId)
     }
 }
 
+/**
+ * Retourne le niveau (chaud, froid ...) de la reponse
+ * @param Reponse $reponse
+ * @return Niveau
+ */
 function getReponseNiveau(Reponse $reponse)
 {
     $rm = new ReponseManager(connexionDb());
     return $rm->getReponseNiveau($reponse);
 }
 
+/**
+ * Ajoute une question/suggestion dans la BDD
+ * @param Question $question
+ */
 function addQuestion(Question $question)
 {
     $qm = new QuestionManager(connexionDb());
     $qm->addQuestion($question);
 }
 
+/**
+ * Retourne tous les niveaux (chaud, froid, ...) possible
+ * @return array
+ */
 function getAllNiveaux()
 {
     $nm = new Niveaumanager(connexionDb());
@@ -59,12 +100,21 @@ function getAllNiveaux()
     return $nm->getAllNiveaux();
 }
 
+/**
+ * Ajouter une reponse a une suggestion/question dans la BDD
+ * @param Reponse $reponse
+ */
 function addReponse(Reponse $reponse)
 {
     $rm = new ReponseManager(connexionDb());
     $rm->addReponse($reponse);
 }
 
+/**
+ * Retourne le niveau (chaud, froid, ...) a partir d'un id
+ * @param String $niveauId
+ * @return Niveau
+ */
 function getNiveauFromId($niveauId)
 {
     $nm = new Niveaumanager(connexionDb());

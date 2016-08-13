@@ -1,10 +1,19 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Erwan
+ * Date: 16/07/2016
+ * Time: 14:18
+ */
+?>
 
-function test()
-{
-    echo("<br />test ok");
-}
 
+<?php
+
+/**
+ * Retourne toutes les énigmes dans l'état "En cours"
+ * @return array
+ */
 function getAllEnigmesEnCours()
 {
     $em = new Enigmemanager(connexionDb());
@@ -16,6 +25,11 @@ function getAllEnigmesEnCours()
     return $enigmes;
 }
 
+/**
+ * Retourne le nom de l'utilisateur a partir de son id
+ * @param String $idAuteur
+ * @return String
+ */
 function getNomAuteurFromId($idAuteur)
 {
     $um = new UtilisateurManager(connexionDb());
@@ -24,24 +38,28 @@ function getNomAuteurFromId($idAuteur)
     return $user->getNom();
 }
 
-
-function posterIndice(Enigme $enigme)
+/**
+ * Ajoute un indice a une enigme dans la BDD
+ * @param Enigme $enigme
+ * @return boolean TRUE si l'ajout a reussi, FALSE sinon
+ */
+function posterIndice(Enigme $enigme, $indiceTexte, $indicePic)
 {
     $conf = parse_ini_file("config.ini.php");
 
-    if(isset($_POST['indice']))
+    if(verifString($indiceTexte))
     {
         $im = new Indicemanager(connexionDb());
         $indice = new Indice(array());
         $enigmeId = $enigme->getId();
         $indice->setEnigme($enigmeId);
-        $indice->setTexte($_POST['indice']);
+        $indice->setTexte($indiceTexte);
 
-        if(isset($_POST['indice_picture']))
+        if($indicePic != NULL && !empty($indicePic))
         {
-            $fichier_indice = basename($_FILES['indice_picture']['name']);
+            $fichier_indice = basename($indicePic['name']);
             $dossier_indice = $conf['path_indices'];
-            move_uploaded_file($_FILES['indice_picture']['tmp_name'], $dossier_indice.$fichier_indice);
+            move_uploaded_file($indicePic['tmp_name'], $dossier_indice.$fichier_indice);
             $indice->setImage($fichier_indice);
         }
         else
@@ -58,26 +76,36 @@ function posterIndice(Enigme $enigme)
     }
 }
 
-function posterEnigme()
+/**
+ * Ajoute une enigme et un indice dans la BDD
+ * @param String $titre Titre de l'enigme
+ * @param String $texte Texte de l'enigme
+ * @param String $idAuteur Id de l'utilisateur
+ * @param String $indiceTexte Texte de l'enigme
+ * @param array $enigmePic Variable $_FILES pour l'image de l'enigme
+ * @param array $indicePic Variable $_FILES pour l'image de l'indice
+ * @return boolean TRUE si l'ajout a reussi, FALSE sinon
+ */
+function posterEnigme($titre, $texte, $idAuteur, $indiceTexte, $enigmePic, $indicePic)
 {
-    if(isset($_POST['titre'])
-        && isset($_POST['enigme'])
-        && strlen($_POST['titre']) >= 4
-        && strlen($_POST['enigme']) >= 4)
+    if(verifString($titre)
+        && verifString($texte)
+        && strlen($titre) >= 4
+        && strlen($texte) >= 4)
     {
         $conf = parse_ini_file("config.ini.php");
         $em = new Enigmemanager(connexionDb());
         $enigme = new Enigme(array());
         
-        $enigme->setAuteur($_SESSION['id']);
-        $enigme->setTitre($_POST['titre']);
-        $enigme->setTexte($_POST['enigme']);
+        $enigme->setAuteur($idAuteur);
+        $enigme->setTitre($titre);
+        $enigme->setTexte($texte);
         
-        if(isset($_FILES['picture']))
+        if($enigmePic != NULL && !empty($enigmePic))
         {
-            $fichier = basename($_FILES['picture']['name']);
+            $fichier = basename($enigmePic['name']);
             $dossier = $conf['path_enigmes'];
-            move_uploaded_file($_FILES['picture']['tmp_name'], $dossier.$fichier);
+            move_uploaded_file($enigmePic['tmp_name'], $dossier.$fichier);
             $enigme->setImage($fichier);
         }
         else
@@ -91,7 +119,7 @@ function posterEnigme()
         $etat->setId(1);
         $em->addEtat($etat, $enigmeId);
         
-        posterIndice($enigme);
+        posterIndice($enigme, $indiceTexte, $indicePic);
         return true;
     }
     else
@@ -100,71 +128,102 @@ function posterEnigme()
     }
 }
 
+/**
+ * Retourne toutes les enigmes d'un utilisateur
+ * @param String $auteurId
+ * @return array
+ */
 function getAllEnigmesAuteur($auteurId)
 {
-    $conf = parse_ini_file("config.ini.php");
     $em = new Enigmemanager(connexionDb());
     $enigmes = $em->getEnigmesByAuteur($auteurId);
     
     return $enigmes;
 }
 
+/**
+ * Compte tous les indices liees a une enigme
+ * @param String $enigmeId
+ * @return int
+ */
 function compterIndiceEnigme($enigmeId) 
 {
-    $conf = parse_ini_file("config.ini.php");
     $im = new Indicemanager(connexionDb());
     $indices = $im->getIndiceById($id);
     
     return count($indices);
 }
 
+/**
+ * Retourne tous les indices lies a une enigme
+ * @param String $enigmeId
+ * @return array
+ */
 function getIndicesEnigme($enigmeId)
 {
-    $conf = parse_ini_file("config.ini.php");
     $im = new Indicemanager(connexionDb());
         
     return $im->getIndiceByEnigmeId($enigmeId);
 }
 
+/**
+ * Compte les questions/suggestions liee a une enigme
+ * @param String $enigmeId
+ * @return array
+ */
 function compterQuestionEnigme($enigmeId)
 {
-    $conf = parse_ini_file("config.ini.php");
     $qm = new QuestionManager(connexionDb());
-    
     $tmp = $qm->countQuestionsByEnigme($enigmeId);
 
     return $tmp['count(*)'];
 }
 
+/**
+ * Retourne le libelle de l'etat d'une enigme
+ * @param String $enigmeId
+ * @return String
+ */
 function getStatusEnigme($enigmeId)
 {
-    $conf = parse_ini_file("config.ini.php");
     $em = new Enigmemanager(connexionDb());
     $etat = $em->getEtatEnigme($enigmeId);
         
     return $etat->getLibelle();
 }
 
+/**
+ * Verifie qu'un utilisateur est auteur de l'enigme
+ * @param String $enigmeId
+ * @param String $auteurId
+ * @return boolean TRUE si l'utilisateur est auteur de l'enigme, FALSE sinon
+ */
 function verifEnigmeAuteur($enigmeId, $auteurId)
 {
-    $conf = parse_ini_file("config.ini.php");
     $em = new Enigmemanager(connexionDb());
     $enigme = $em->getEnigmeById($enigmeId);
     
     return $enigme->getAuteur() == $auteurId;
 }
 
+/**
+ * @param String $enigmeId L'identifiant de l'énigme
+ * @return Enigme
+ */
 function getEnigmeById($enigmeId)
 {
-    $conf = parse_ini_file("config.ini.php");
     $em = new Enigmemanager(connexionDb());
     
     return $em->getEnigmeById($enigmeId);
 }
 
+/**
+ * Retourne la liste des etats possibles d'une enigmes en fonction de son etat actuel
+ * @param Etat $etatInitial Etat actuel de l'enigme
+ * @return array
+ */
 function listerEtats(Etat $etatInitial)
 {
-    $conf = parse_ini_file("config.ini.php");
     $em = new Etatmanager(connexionDb());
     
     $etats = $em->getAllEtat();
@@ -219,9 +278,14 @@ function listerEtats(Etat $etatInitial)
     return $tab;
 }
 
+/**
+ * Change l'etat d'une enigme dans la BDD
+ * @param Enigme $enigme
+ * @param String $etatId
+ * @return boolean
+ */
 function changerEtat(Enigme $enigme, $etatId)
 {
-    $conf = parse_ini_file("config.ini.php");
     $etm = new Etatmanager(connexionDb());
     $em = new Enigmemanager(connexionDb());
     
