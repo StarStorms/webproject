@@ -162,8 +162,8 @@ function setMDPPerduGrade($mail)
 function deleteReactivation($code) 
 {
     $am = new ActivationManager(connexionDb());
-    $act = $am->getActivationByCode($code);
-    $am->deleteActivation($act->getId(), $act->getLibelle());
+    $act = $am->getActivationByCode($code);    
+    $am->deleteActivation($act->getIdUtilisateur(), $act->getLibelle());
 }
 
 /**
