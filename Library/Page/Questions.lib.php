@@ -2,7 +2,6 @@
 
 function getQuestionsEnigme($enigmeId)
 {
-    $conf = parse_ini_file("config.ini.php");
     $qm = new QuestionManager(connexionDb());
     
     return $qm->getQuestionsByEnigme($enigmeId);
@@ -10,11 +9,9 @@ function getQuestionsEnigme($enigmeId)
 
 function getQuestionById($questionId)
 {
-    $conf = parse_ini_file("config.ini.php");
     $qm = new QuestionManager(connexionDb());
     
     return $qm->getQuestionById($questionId);
-
 }
 
 function getAuteurQuestion($questionId)
@@ -26,17 +23,16 @@ function getAuteurQuestion($questionId)
     $question = $qm->getQuestionById($questionId);
     $auteur = $um->getUserById($question->getAuteur());
     
-    return $auteur->getNom();
+    return $auteur;
 }
 
 function getReponseQuestion($questionId)
 {
     $rm = new ReponseManager(connexionDb());
-    $reponse = $rm->getReponseById($questionId);
-    
+    $reponse = $rm->getReponseByQuestion($questionId);
     if($reponse != NULL && $reponse->getQuestion() == $questionId)
     {
-        return $reponse->getTexte();
+        return $reponse;
     }
     else
     {
@@ -54,6 +50,26 @@ function addQuestion(Question $question)
 {
     $qm = new QuestionManager(connexionDb());
     $qm->addQuestion($question);
+}
+
+function getAllNiveaux()
+{
+    $nm = new Niveaumanager(connexionDb());
+    
+    return $nm->getAllNiveaux();
+}
+
+function addReponse(Reponse $reponse)
+{
+    $rm = new ReponseManager(connexionDb());
+    $rm->addReponse($reponse);
+}
+
+function getNiveauFromId($niveauId)
+{
+    $nm = new Niveaumanager(connexionDb());
+    
+    return $nm->getNiveauById($niveauId);
 }
 
 ?>

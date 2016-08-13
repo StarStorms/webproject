@@ -10,13 +10,12 @@
  
 <?php
     include "Library/Page/Enigmes.lib.php";
-    include "Lirary/Page/Questions.lib.php";
+    include "Library/Page/Questions.lib.php";
     $conf = parse_ini_file("config.ini.php");
-    if(isset($_SESSION['connected']) 
-            && $_SESSION['connected'] == TRUE 
-            && isset($_SESSION['id']))
+    if(isConnect())
     {
-        if(isset($_GET['id']) 
+        if(isset($_GET['id'])
+                && verifString($_GET['id'])
                 && verifEnigmeAuteur($_GET['id'], $_SESSION['id']) == TRUE)
         {
             $enigme = getEnigmeById($_GET['id']);
@@ -104,11 +103,11 @@
                         <tr>
                         <form method="post" action="index.php?page=manager_enigme&action=poster_indice&id=<?php echo($enigme->getId()); ?>">                            
                         <div class="form-group">
-                           <label for="enigme">Poster un nouvel indice</label>
+                           <label for="indice">Poster un nouvel indice</label>
                            <input type="textarea" id="indice" name="indice" required class="form-control" required />
                        </div>
                         <div class="form-group">
-                           <label for="enigme">Image de l'indice : (falcutatif) </label>
+                           <label for="indice_picture">Image de l'indice : (falcutatif) </label>
                            <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
                            <input type="file" name="indice_picture" />
                        </div>
@@ -153,16 +152,17 @@
                             $questions = getQuestionsEnigme($enigme->getId());
                             foreach ($questions as $elem)
                             {
+                                $auteur = getAuteurQuestion($elem->getId());
 ?>
                                 <tr>
                                     <td><?php echo($elem->getTexte()); ?></td>
-                                    <td>Par : <?php echo(getAuteurQuestion($elem->getId())); ?></td>
+                                    <td>Par : <?php echo($auteur->getNom()); ?></td>
                                     <td>Le : <?php echo($elem->getDateCrea()); ?></td>
 <?php
                                     $reponse = getReponseQuestion($elem->getId());
-                                    $niveau = getReponseNiveau($reponse);
                                     if($reponse != NULL && strlen($reponse) > 0)
                                     {
+                                        $niveau = getReponseNiveau($reponse);
 ?>
                                     <td><strong> Réponse : <?php echo($niveau->getLibelle()); ?></strong><p><?php echo($reponse->getTexte()); ?></p></td>
 <?php
@@ -170,7 +170,7 @@
                                     else
                                     {
 ?>
-                                    <td><a href="index.php?page=rediger_reponse&id=<?php echo($elem->getId()); ?>">Rédiger une réponse</a></td>
+                                    <td><a href="index.php?page=repondre_question&code=<?php echo($elem->getId()); ?>">Rédiger une réponse</a></td>
 <?php
                                     }
 ?>

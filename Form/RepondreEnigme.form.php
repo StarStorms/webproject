@@ -32,7 +32,7 @@ if(verifString($_GET['code'])
 
     <div class="container">
     <div class="jumbotron">
-        <h1><?php echo($enigme->getId()); ?></h1>
+        <h1><?php echo($enigme->getTitre()); ?></h1>
         <p><?php echo($enigme->getTexte()); ?></p>
     </div>
     </div>
@@ -99,9 +99,10 @@ if(verifString($_GET['code'])
                 foreach($questions as $elem)
                 {
                     $reponse = getReponseQuestion($elem->getId());
+                    $auteur = getAuteurQuestion($elem->getId());
 ?>
                 <tr>
-                    <td>Par : <?php echo(getAuteurQuestion($elem->getId())); ?></td>
+                    <td>Par : <?php echo($auteur->getNom()); ?></td>
                     <td>Le : <?php echo($elem->getDateCrea()); ?></td>
                     <td><?php echo($elem->getTexte()); ?></td>
 <?php

@@ -63,7 +63,8 @@ class ReponseManager
             ":question" => $question
         ));
 
-        if($tabReponse = $query->fetch(PDO::FETCH_ASSOC))
+        $tabReponse = $query->fetch(PDO::FETCH_ASSOC);
+        if($tabReponse != NULL)
         {
             $reponse = new Reponse($tabReponse);
             $reponse->setNiveau($this->getReponseNiveau($reponse));
@@ -90,5 +91,33 @@ class ReponseManager
             $niveauReponse = $nm->getNiveauById($elem['id_niveau']);
         }
         return $niveauReponse;
+    }
+    
+    public function addReponse(Reponse $reponse)
+    {
+        $query = $this
+            ->db
+            ->prepare("INSERT INTO reponse(question, texte, date_crea, date_modif) VALUES (:question, :texte, NOW(), NOW())");
+
+        $query->execute(array(
+            ":question" => $reponse->getQuestion(),
+            ":texte" =>$reponse->getTexte()
+        ));
+        
+        $query2 = $this->db->prepare("SELECT id FROM reponse WHERE question = :question AND texte = :texte");
+        $query2->execute(array(
+            ":question" => $reponse->getQuestion(),
+            ":texte" => $reponse->getTexte()
+        ));
+        
+        $ids = $query2->fetchAll(PDO::FETCH_ASSOC);
+        $id = $ids[0]['id'];
+        $niveau = $reponse->getNiveau();
+        
+        $query3 = $this->db->prepare("INSERT INTO niveau_reponse(id_reponse, id_niveau) VALUES (:id_reponse, :id_niveau)");
+        $query3->execute(array(
+            ":id_reponse" => $id,
+            ":id_niveau" => $niveau->getId()
+        ));
     }
 }

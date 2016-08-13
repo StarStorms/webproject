@@ -15,6 +15,11 @@ class Reponse
     private $date_modif;
     private $niveau = array();
 
+    public function __construct(array $reponse)
+    {
+        $this->__hydrate($reponse);
+    }
+    
     /**
      * @return mixed
      */

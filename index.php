@@ -120,7 +120,9 @@ startSession();
             else if ($_GET['page'] == "repondre_enigme") {
                 include "Form/RepondreEnigme.form.php";
             }
-
+            else if ($_GET['page'] == "repondre_question") {
+                include "Form/RepondreQuestion.form.php";
+            }
             
         }
         ?>
