@@ -122,4 +122,18 @@ function getNiveauFromId($niveauId)
     return $nm->getNiveauById($niveauId);
 }
 
+function supprimerQuestion($idQuestion)
+{
+    $qm = new QuestionManager(connexionDb());
+    $reponse = getReponseQuestion($idQuestion);
+    
+    if($reponse != NULL && $reponse->getNiveau() != NULL)
+    {
+        $rm = new ReponseManager(connexionDb());        
+        $rm->deleteReponse($reponse);
+    }
+    
+    $qm->deleteQuestionById($idQuestion);
+}
+
 ?>

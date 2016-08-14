@@ -86,7 +86,7 @@ function posterIndice(Enigme $enigme, $indiceTexte, $indicePic)
  * @param array $indicePic Variable $_FILES pour l'image de l'indice
  * @return boolean TRUE si l'ajout a reussi, FALSE sinon
  */
-function posterEnigme($titre, $texte, $idAuteur, $indiceTexte, $enigmePic, $indicePic)
+function posterEnigme($titre, $texte, $idAuteur, $reponse, $indiceTexte, $enigmePic, $indicePic)
 {
     if(verifString($titre)
         && verifString($texte)
@@ -100,6 +100,7 @@ function posterEnigme($titre, $texte, $idAuteur, $indiceTexte, $enigmePic, $indi
         $enigme->setAuteur($idAuteur);
         $enigme->setTitre($titre);
         $enigme->setTexte($texte);
+        $enigme->setReponse($reponse);
         
         if($enigmePic != NULL && !empty($enigmePic))
         {

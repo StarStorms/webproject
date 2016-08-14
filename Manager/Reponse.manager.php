@@ -120,4 +120,20 @@ class ReponseManager
             ":id_niveau" => $niveau->getId()
         ));
     }
+    
+    public function deleteReponse(Reponse $reponse)
+    {
+        $niveau = $reponse->getNiveau();
+        
+        $query = $this->db->prepare("DELETE FROM niveau_reponse WHERE id_reponse = :id_reponse AND id_niveau = :id_niveau");
+        $query->execute(array(
+            ":id_reponse" => $reponse->getId(),
+            ":id_niveau" => $niveau->getId()
+        ));
+        
+        $query2 = $this->db->prepare("DELETE FROM reponse WHERE id = :id");
+        $query2->execute(array(
+            ":id" => $reponse->getId()
+        ));
+    }
 }

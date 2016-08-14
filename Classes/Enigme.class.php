@@ -15,6 +15,7 @@ class Enigme
     private $image;
     private $date_modif;
     private $date_crea;
+    private $reponse;
     private $etat = array();
 
     /**
@@ -158,6 +159,15 @@ class Enigme
         $this->date_crea = $date_crea;
     }
 
+    public function setReponse($reponse)
+    {
+        $this->reponse = $reponse;
+    }
+    
+    public function getReponse()
+    {
+        return $this->reponse;
+    }
 
 
 }

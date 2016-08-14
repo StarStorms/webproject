@@ -8,6 +8,44 @@
 ?>
 
 <?php
+
+function afficherFormulaireRedigerEnigme()
+{
+?>
+    <div class="container">
+    <form action="index.php?page=rediger_enigme" method="post" class="form-horizontal" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="titre">Titre  : (4 caractères min)</label>
+            <input type="text" id="name" name="titre" placeholder="Titre de l'énigme" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="picture">Image de votre énigme : (falcutatif) </label>
+            <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+            <input type="file" name="picture" />
+        </div>
+        <div class="form-group">
+            <label for="enigme">Votre énigme : (4 caractères min)</label>
+            <input type="textarea" id="enigme" name="enigme" required class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="reponse">Réponse à l'énigme :</label>
+            <input type="textarea" id="reponse" name="reponse" required class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="indice">Indice : (falcutatif)</label>
+            <input type="textarea" id="indice" name="indice" required class="form-control" required />
+        </div>
+         <div class="form-group">
+            <label for="indice_picture">Image de l'indice : (falcutatif) </label>
+            <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+            <input type="file" name="indice_picture" />
+        </div>
+        <button type="submit" class="btn btn-default">Envoyer</button>
+    </form>
+    </div>
+<?php
+}
+
 if(isConnect())
 {
 ?>
@@ -20,72 +58,15 @@ if(isConnect())
 <?php
     if(!isset($_POST['titre']))
     {
-?>    
-        <div class="container">
-            <form action="index.php?page=rediger_enigme" method="post" class="form-horizontal">
-                <div class="form-group">
-                    <label for="titre">Titre  : (4 caractères min)</label>
-                    <input type="text" id="name" name="titre" placeholder="Titre de l'énigme" class="form-control" required />
-                </div>
-                <div class="form-group">
-                    <label for="enigme">Image de votre énigme : (falcutatif) </label>
-                    <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-                    <input type="file" name="picture" />
-                </div>
-                <div class="form-group">
-                    <label for="enigme">Votre énigme : (4 caractères min)</label>
-                    <input type="textarea" id="enigme" name="enigme" required class="form-control" required />
-                </div>
-                <div class="form-group">
-                    <label for="enigme">Indice : (falcutatif)</label>
-                    <input type="textarea" id="indice" name="indice" required class="form-control" required />
-                </div>
-                 <div class="form-group">
-                    <label for="enigme">Image de l'indice : (falcutatif) </label>
-                    <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-                    <input type="file" name="indice_picture" />
-                </div>
-                <button type="submit" class="btn btn-default">Envoyer</button>
-            </form>
-        </div>
-
-<?php
+        afficherFormulaireRedigerEnigme();
     }
     else
     {
         include "Library/Page/Enigmes.lib.php";
-        if(!posterEnigme($_POST['titre'], $_POST['enigme'], getIdSession(), $_POST['indice'], $_FILES['picture'], $_FILES['indice_picture']))
+        if(!posterEnigme($_POST['titre'], $_POST['enigme'], getIdSession(), $_POST['reponse'], $_POST['indice'], $_FILES['picture'], $_FILES['indice_picture']))
         {
-?>
-        <div class="container">
-                <form action="index.php?page=rediger_enigme" method="post" class="form-horizontal" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="titre">Titre  : (4 caractères min)</label>
-                        <input type="text" id="name" name="titre" placeholder="Titre de l'énigme" class="form-control" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="picture">Image de votre énigme : (falcutatif) </label>
-                        <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-                        <input type="file" name="picture" />
-                    </div>
-                    <div class="form-group">
-                        <label for="enigme">Votre énigme : (4 caractères min)</label>
-                        <input type="textarea" id="enigme" name="enigme" required class="form-control" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="indice">Indice : (falcutatif)</label>
-                        <input type="textarea" id="indice" name="indice" required class="form-control" required />
-                    </div>
-                     <div class="form-group">
-                        <label for="indice_picture">Image de l'indice : (falcutatif) </label>
-                        <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-                        <input type="file" name="indice_picture" />
-                    </div>
-                    <button type="submit" class="btn btn-default">Envoyer</button>
-                </form>
-            </div>
-<?php
             afficherAlertErreur("une erreur est survenue.");
+            afficherFormulaireRedigerEnigme();
         }
         else
         {

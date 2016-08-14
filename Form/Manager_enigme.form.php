@@ -16,7 +16,7 @@
     {
         if(isset($_GET['id'])
                 && verifString($_GET['id'])
-                && verifEnigmeAuteur($_GET['id'], $_SESSION['id']) == TRUE)
+                && verifEnigmeAuteur($_GET['id'], getIdSession()) == TRUE)
         {
             $enigme = getEnigmeById($_GET['id']);
             if($enigme != NULL && $enigme->getId() == $_GET['id']) {
@@ -25,6 +25,8 @@
                      <div class="jumbotron">
                          <h1>Votre énigme : <?php echo($enigme->getTitre()); ?></h1>
                          <br /><p><?php echo($enigme->getTexte()); ?></p>
+                         <br /><p>La réponse :</p>
+                         <br /><p><?php echo($enigme->getReponse()); ?></p>
                     </div>
                 </div>
 <?php
@@ -70,9 +72,6 @@
                         afficherAlertErreur("Une erreur est survenue");
                     }
                 }
-
-                    
-
 ?>
 
                 <div class="container">
@@ -160,7 +159,7 @@
                                     <td>Le : <?php echo($elem->getDateCrea()); ?></td>
 <?php
                                     $reponse = getReponseQuestion($elem->getId());
-                                    if($reponse != NULL && strlen($reponse) > 0)
+                                    if($reponse != NULL && $reponse->getNiveau() != NULL)
                                     {
                                         $niveau = getReponseNiveau($reponse);
 ?>

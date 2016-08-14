@@ -129,4 +129,12 @@ class QuestionManager
                 ":texte" => $question->getTexte()
             ));
     }
+    
+    public function deleteQuestionById($id)
+    {
+        $query = $this->db->prepare("DELETE FROM question WHERE id = :id");
+        $query->execute(array(
+            ":id" => $id
+        ));
+    }
 }

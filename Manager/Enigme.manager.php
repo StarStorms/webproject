@@ -140,13 +140,14 @@ class Enigmemanager
     {
         $query = $this
         ->db
-        ->prepare("INSERT INTO enigme(auteur, titre, texte, image, date_crea) VALUES (:auteur, :titre, :texte, :image, NOW())");
+        ->prepare("INSERT INTO enigme(auteur, titre, texte, image, date_crea, reponse) VALUES (:auteur, :titre, :texte, :image, NOW(), :reponse)");
 
     $query->execute(array(
         ":auteur" => $enigme->getAuteur(),
         ":titre" => $enigme->getTitre(),
         ":texte" => $enigme->getTexte(),
-        ":image" => $enigme->getImage()
+        ":image" => $enigme->getImage(),
+        ":reponse" => $enigme->getReponse()
             ));
         
     
