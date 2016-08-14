@@ -8,7 +8,7 @@
 
 <?php
     include "Library/Page/Enigmes.lib.php";
-    $enigmes = getAllEnigmesEnCours();
+    $enigmes = getAllEnigmesEnCours(getIdSession());
 ?>
     
     <table>

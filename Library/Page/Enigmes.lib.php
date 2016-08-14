@@ -5,16 +5,14 @@
  * Date: 16/07/2016
  * Time: 14:18
  */
-?>
 
-
-<?php
 
 /**
  * Retourne toutes les énigmes dans l'état "En cours"
+ * @param String $userId Id de l'utilisateur connecte
  * @return array
  */
-function getAllEnigmesEnCours()
+function getAllEnigmesEnCours($userId)
 {
     $em = new Enigmemanager(connexionDb());
     $etm = new Etatmanager(connexionDb());
@@ -22,7 +20,17 @@ function getAllEnigmesEnCours()
     $etat = $etm->getEtatById(2);
     $enigmes = $em->getEnigmesByEtat($etat);
     
-    return $enigmes;
+    
+    $tab = array();
+    foreach ($enigmes as $elem)
+    {
+        if($elem->getAuteur() != $userId)
+        {
+            array_push($tab, $elem);
+        }
+    }
+   
+    return $tab;
 }
 
 /**

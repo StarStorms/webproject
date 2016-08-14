@@ -33,7 +33,7 @@ function afficherFormulaireRedigerEnigme()
         </div>
         <div class="form-group">
             <label for="indice">Indice : (falcutatif)</label>
-            <input type="textarea" id="indice" name="indice" required class="form-control" required />
+            <input type="textarea" id="indice" name="indice" required class="form-control" />
         </div>
          <div class="form-group">
             <label for="indice_picture">Image de l'indice : (falcutatif) </label>
