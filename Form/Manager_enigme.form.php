@@ -72,6 +72,33 @@
                         afficherAlertErreur("Une erreur est survenue");
                     }
                 }
+                else if(isset($_GET['action']) && $_GET['action'] == "resolue")
+                {
+                    if(isset($_GET['id_q']))
+                    {
+                    $question = getQuestionById($_GET['id_q']);
+                        if($question != NULL && $question->getId() == $_GET['id_q'])
+                        {
+                            changerEtat($enigme, 5);
+                            $reponse = new Reponse(array());
+                            $niveau = getNiveauFromId(8);
+                            $reponse->setNiveau($niveau);
+                            $reponse->setQuestion($question->getId());
+                            $reponse->setTexte("TROUVE !");
+                            addReponse($reponse);
+                            
+                            afficherAlertSucces("L'énigme a été résolue !");
+                        }
+                        else
+                        {
+                            afficherAlertErreur("Une erreur est survenue");
+                        }
+                    }
+                    else
+                    {
+                        afficherAlertErreur("Une erreur est survenue");
+                    }
+                }
 ?>
 
                 <div class="container">
@@ -170,6 +197,7 @@
                                     {
 ?>
                                     <td><a href="index.php?page=repondre_question&code=<?php echo($elem->getId()); ?>">Rédiger une réponse</a></td>
+                                    <td><a href="index.php?page=manager_enigme&action=resolue&id_q=<?php echo($elem->getId()); ?>&id=<?php echo($enigme->getId()); ?>">Resolue !</a></td>
 <?php
                                     }
 ?>

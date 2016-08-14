@@ -90,14 +90,21 @@ function addQuestion(Question $question)
 }
 
 /**
- * Retourne tous les niveaux (chaud, froid, ...) possible
+ * Retourne tous les niveaux (chaud, froid, ...) possible sauf le niveau "Trouvé"
  * @return array
  */
 function getAllNiveaux()
 {
     $nm = new Niveaumanager(connexionDb());
+    $niveaux = $nm->getAllNiveaux();
+    $trouve = new Niveau(array());
+    $trouve->setId(8);
+    $trouve->setLibelle("Trouvé");
     
-    return $nm->getAllNiveaux();
+    $key = array_search($trouve, $niveaux);
+    unset($niveaux[$key]);
+    
+    return $niveaux;
 }
 
 /**

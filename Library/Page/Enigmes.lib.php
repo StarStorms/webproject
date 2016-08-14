@@ -242,7 +242,6 @@ function listerEtats(Etat $etatInitial)
         {
             if(strcmp($elem->getLibelle(), "Masquée") == 0
                     || strcmp($elem->getLibelle(), "En pause") == 0
-                    || strcmp($elem->getLibelle(), "Résolue") == 0
                     || strcmp($elem->getLibelle(), "Abandonnée") == 0)
             {
                 array_push($tab, $elem);
@@ -252,7 +251,6 @@ function listerEtats(Etat $etatInitial)
         {
             if(strcmp($elem->getLibelle(), "En cours") == 0
                     || strcmp($elem->getLibelle(), "En pause") == 0
-                    || strcmp($elem->getLibelle(), "Résolue") == 0
                     || strcmp($elem->getLibelle(), "Abandonnée") == 0)
             {
                 array_push($tab, $elem);
@@ -293,7 +291,9 @@ function changerEtat(Enigme $enigme, $etatId)
     $etatsPossibles = listerEtats($enigme->getEtat());
     $etat = $etm->getEtatById($etatId);
 
-    if($etat != NULL && $etat->getId() == $etatId && in_array($etat, $etatsPossibles))
+    if($etat != NULL 
+            && $etat->getId() == $etatId 
+            && (in_array($etat, $etatsPossibles) || $etatId == 5))
     {
         $em->updateEtatEnigme($enigme, $etat);
         return TRUE;
