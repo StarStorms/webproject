@@ -136,4 +136,22 @@ class ReponseManager
             ":id" => $reponse->getId()
         ));
     }
+    
+    public function getAllReponseByNiveau($niveauId)
+    {
+        $query = $this->db->prepare("SELECT id_enigme FROM niveau_reponse WHERE id_niveau = :id_niveau");
+        $query->execute(array(
+            ":id_niveau" => $niveauId
+        ));
+        
+        $tab = array();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        foreach ($result as $elem)
+        {
+            $rep = $this->getReponseById($elem);
+            array_push($tab, $rep);
+        }
+        
+        return $tab;
+    }
 }

@@ -123,7 +123,6 @@ startSession();
             else if ($_GET['page'] == "repondre_question") {
                 include "Form/RepondreQuestion.form.php";
             }
-            
         }
         ?>
     </article>

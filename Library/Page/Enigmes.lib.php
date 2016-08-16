@@ -9,6 +9,7 @@
 
 /**
  * Retourne toutes les énigmes dans l'état "En cours"
+ * sauf celles dont l'utilisateur est cours est auteur
  * @param String $userId Id de l'utilisateur connecte
  * @return array
  */
@@ -311,4 +312,58 @@ function changerEtat(Enigme $enigme, $etatId)
         return FALSE;
     }            
 }
+
+//function getReponsesResolues()
+//{
+//    $rm = new ReponseManager(connexionDb());
+//    return $rm->getAllReponseByNiveau(8);
+//}
+//
+//function getTopDetectives()
+//{
+//    $um = new UtilisateurManager(connexionDb());
+//    
+//    $tab = array();
+//    $maxKey = 0;
+//    $reponses = getReponsesResolues();
+//    foreach ($reponses as $elem)
+//    {
+//        $key = $elem->getAuteur();
+//        $maxKey = ($key > $maxKey) ? $key : $maxKey; 
+//        $tab[key] = (!isset($tab[$key]) || $tab[$key] == NULL || $tab[$key] == 0) ? 1 : $tab[$key] + 1; 
+//    }
+//    
+//    $top = array(0, 0, 0);
+//    for($x = 0 ; $x <= $maxKey ; $x++)
+//    {
+//        for($y = 0; y < 3 ; $y++)
+//        {
+//            if($tab[$x] > $top[$y])
+//            {
+//                for($z = 2 ; $z > $y ; $z--)
+//                {
+//                    $tmp = $top[$z];
+//                    $top[$z] = $top[$z-1];
+//                    $top[$z+1] = $tmp;
+//                }
+//                $top[$y] = $x;
+//            }
+//        }
+//    }
+//    
+//    if(isset($top[3]))
+//    {
+//        unset($top[3]);
+//    }
+//
+//    $topUser = array();
+//    foreach ($top as $id)
+//    {
+//        $nUser = $um->getUserById($id);
+//        array_push($topUser, $nUser);
+//    }
+//    
+//    return $topUser;
+//}
+
 ?>

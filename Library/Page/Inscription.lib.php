@@ -61,8 +61,7 @@ function setActivation(Utilisateur $user) {
     $message .= "<tr><td><strong>Cliquez sur ce lien pour confirmer l'inscription :</strong> </td><td><a href='http://www.193.190.65.94/HE201085/TRAV/201608/index.php?page=activation&code=" . $act->getCode() . "' target='_blank'>http://www.193.190.65.94/HE201085/TRAV/201608/index.php?page=activation&code=" . $act->getCode() . " </a></td></tr>";
     $message .= "</table>";
     $message .= "</body></html>";
-     echo("<h1> MAIL : </h1><br />".$message." <br />");
-    //mail($to, $sujet, $message, $entete);
+    mail($to, $sujet, $message, $entete);
      
     afficherAlertSucces("Vous avez reçu un mail avec votre code d'activation !");
 } 
