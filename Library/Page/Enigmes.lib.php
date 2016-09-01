@@ -20,8 +20,7 @@ function getAllEnigmesEnCours($userId)
     
     $etat = $etm->getEtatById(2);
     $enigmes = $em->getEnigmesByEtat($etat);
-    
-    
+        
     $tab = array();
     foreach ($enigmes as $elem)
     {
@@ -313,19 +312,21 @@ function changerEtat(Enigme $enigme, $etatId)
     }            
 }
 
-//function getReponsesResolues()
-//{
-//    $rm = new ReponseManager(connexionDb());
-//    return $rm->getAllReponseByNiveau(8);
-//}
-//
-//function getTopDetectives()
-//{
-//    $um = new UtilisateurManager(connexionDb());
-//    
-//    $tab = array();
-//    $maxKey = 0;
-//    $reponses = getReponsesResolues();
+function getReponsesResolues()
+{
+    $rm = new ReponseManager(connexionDb());
+    return $rm->getAllReponseByNiveau(8);
+}
+
+function getTopDetectives()
+{
+    $um = new UtilisateurManager(connexionDb());
+    
+    $tab = array();
+    $maxKey = 0;
+    $reponses = getReponsesResolues();
+    print_r($reponses);
+    return;
 //    foreach ($reponses as $elem)
 //    {
 //        $key = $elem->getAuteur();
@@ -364,6 +365,6 @@ function changerEtat(Enigme $enigme, $etatId)
 //    }
 //    
 //    return $topUser;
-//}
+}
 
 ?>

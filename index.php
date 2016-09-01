@@ -124,6 +124,10 @@ startSession();
                 include "Form/RepondreQuestion.form.php";
             }
         }
+        else
+        {
+            include "Form/Accueil.form.php";
+        }
         ?>
     </article>
     <footer>
